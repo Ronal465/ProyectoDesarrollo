@@ -1,0 +1,65 @@
+
+
+<ng-container class="ContainerAdministrador" >
+
+    <ng-container class="Inicio" *ngIf='OpcionAdministrador == "Inicio"'>
+
+        <button  (click)='OpcionAdministrador = "CrearUsuario";' >Crear Usuario</button>
+        <button (click)='OpcionAdministrador = "ActualizarUsuario";' >Actualizar Usuario</button>
+        
+    </ng-container>
+
+    <ng-container class="CrearUsuario" *ngIf='OpcionAdministrador == "CrearUsuario"'>
+
+        <div class="LabelUsuario">
+            <label for="TxtPrimerNombre" name="LabPrimerNombre" >Primer Nombre</label>
+        </div>
+        
+        <div class="CamposDeTexto">
+            <input type="text" name="TxtPrimerNombre"  />
+        </div>
+
+        <div class="LabelUsuario">
+            <label for="TxtSegundoNombre" name="LabSegundoNombre" >Segundo Nombre</label>
+        </div>
+        
+        <div class="CamposDeTexto">
+            <input type="text" name="TxtSegundoNombre"  />
+        </div>
+
+        <div class="LabelUsuario">
+            <label for="TxtPrimerApellido" name="LabPrimerApellido" >Primer Apellido</label>
+        </div>
+        
+        <div class="CamposDeTexto">
+            <input type="text" name="TxtPrimerApellido"  />
+        </div>
+
+        <div class="LabelUsuario">
+            <label for="TxtSegundoApellido" name="LabSegundoApellido" >Segundo Apellido</label>
+        </div>
+        
+        <div class="CamposDeTexto">
+            <input type="text" name="TxtSegundoApellido"  />
+        </div>
+
+        <div class="LabelUsuario">
+            <label for="TxtNumeroIdentificacion" name="LabNumeroIdentificacion" >Numero Identificacion</label>
+        </div>
+        
+        <div class="CamposDeTexto">
+            <input type="text" name="TxtNumeroIdentificacion"/>
+        </div>
+
+        <button>Crear Usuario</button>
+    </ng-container>
+
+    <ng-container class="ActualizarUsuario" *ngIf='OpcionAdministrador == "ActualizarUsuario"' >
+        <button>Actualizar Usuario</button>
+    </ng-container>
+
+
+
+</ng-container>
+
+
