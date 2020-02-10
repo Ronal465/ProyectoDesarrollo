@@ -1,49 +1,43 @@
-
-
-
 <ng-container *ngIf="SeccionLogin" class='ContainerLogin' >
     <div class="cuadricula">
-    <div class="Login">
+        <div class="Login">
 
-    <h1>Celutel</h1>
+            <h1>Celutel</h1>
 
-    <br/><br/><br/><br/>
+            <br/><br/><br/><br/>
 
-    <form >
-        
-        
-        <div class="LabelLogin">
-            <label for="TxtUsername" name="LabIdentificacion" >Identificacion</label>
+            <form >
+
+                <div class="LabelLogin">
+                    <label for="TxtUsername" name="LabIdentificacion" >Identificacion</label>
+                </div>
+                
+                <div class="CamposDeTexto">
+                    <input type="text" name="TxtUsername"  [(ngModel)]="ObtEmpleado.Username" />
+                </div>
+
+                <br/>
+
+                <div class="LabelLogin">
+                    <label for="TxtContrasena" name="LabContrasena"  >Contraseña</label>
+                </div>
+            
+                <div class="CamposDeTexto">
+                    <input type="password" name="TxtContrasena"[(ngModel)]="ObtEmpleado.Contrasena"/>
+                </div>
+
+                <br/> <br/>
+                <div class="botones">
+                <button  id="BLogin" (click)="Loguearse()"> Acceder </button>
+                <br/><br/>
+                <button  id="BSeccionRecueprar" (click)="SeccionLogin = false"> Recuperar Contrasena </button>
+                </div>
+            </form>
         </div>
-        
-        <div class="CamposDeTexto">
-            <input type="text" name="TxtUsername"  [(ngModel)]="ObtEmpleado.Username" />
+        <div class="ImagenFondo">
         </div>
 
-        <br/>
-
-        <div class="LabelLogin">
-            <label for="TxtContrasena" name="LabContrasena"  >Contraseña</label>
-        </div>
-    
-        <div class="CamposDeTexto">
-            <input type="password" name="TxtContrasena"[(ngModel)]="ObtEmpleado.Contrasena"/>
-        </div>
-
-        <br/> <br/>
-        <div class="botones">
-        <button  id="BLogin" (click)="Loguearse()"> Acceder </button>
-        <br/><br/>
-        <button  id="BSeccionRecueprar" (click)="SeccionLogin = false"> Recuperar Contrasena </button>
-        </div>
-        
-
-    </form>
-    
-</div>
-<div class="ImagenFondo"></div>
-
-</div>
+    </div>
 </ng-container>
 
 <ng-container *ngIf="!SeccionLogin" >

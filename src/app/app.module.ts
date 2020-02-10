@@ -12,6 +12,7 @@ import { HttpClient } from 'selenium-webdriver/http';
 import { RecepcionComponent } from './components/recepcion/recepcion.component';
 import { TecnicoComponent } from './components/tecnico/tecnico.component';
 import { AdministradorComponent } from './components/administrador/administrador.component';
+import { BuscadorPipe } from './pipes/buscador.pipe';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { AdministradorComponent } from './components/administrador/administrador
     LoginComponent,
     RecepcionComponent,
     TecnicoComponent,
-    AdministradorComponent
+    AdministradorComponent,
+    BuscadorPipe
   ],
   imports: [
     BrowserModule,
