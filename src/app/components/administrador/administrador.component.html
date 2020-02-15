@@ -9,7 +9,7 @@
             <div class="Opciones">
                 <div class="OpcionesAdministrador">
                     <img src="https://image.flaticon.com/icons/png/512/283/283516.png">
-                    <button  (click)='OpcionAdministrador = "CrearUsuario"; RellenarListas(1);' >Crear Usuario</button>
+                    <button  (click)='OpcionAdministrador = "CrearUsuario"; RellenarListas(1); RellenarListas(2);' >Crear Usuario</button>
                 </div>
                 <div class="OpcionesAdministrador">
                     <img src="https://image.flaticon.com/icons/svg/761/761824.svg">
@@ -95,10 +95,7 @@
                 </div>
 
                 <div class="selects">
-                    <select name="CMBPermisos" id="CMBPermisos" [(ngModel)]="ObtEmpleado.Permisos">
-                        <option value="1" label="Administrador"></option>
-                        <option value="2" label="Recepcion"></option>
-                        <option value="3" label="Tecnico"></option>
+                    <select name="CMBPermisos" id="CMBPermisos" [(ngModel)]="ObtEmpleado.FK_IdPermisos">
                     </select>
 
                     <select name="CMBEstadoEmpleado" id="CMBEstadoEmpleado" [(ngModel)]="ObtEmpleado.FK_IdEstadoEmpleado">
@@ -107,7 +104,7 @@
                 
                 <div class="botones">
                     <button id="BotonSalida" (click)='OpcionAdministrador = "Inicio"' ></button>
-                    <button id="Boton" (click)="MostrarEmpleado();">Crear Usuario</button>
+                    <button id="Boton" (click)="CrearUsuario()">Crear Usuario</button>
                 </div>
             </div>
         </div>
@@ -142,7 +139,7 @@
                                 <td>{{Empleado.Primer_Nombre}} </td>
                                 <td>{{Empleado.Primer_Apellido}} </td>
                                 <td>{{Empleado.Username}} </td>
-                                <button  (click)='Mostrar(Empleado.Id_Empleado)'> Editar</button>
+                                <button  (click)='OpcionAdministrador = "Editar" ;RellenarListas(1);  ActualizarEditar(Empleado.Username);'> Editar</button>
                         </tr>
                     </div>
                     <div class="botones">
@@ -150,6 +147,88 @@
                     </div>
             </div>
         </div>
+    </ng-container> 
+
+    <ng-container class="ActualizarUsuario" *ngIf='OpcionAdministrador == "Editar"' >
+        <div class="cuadricula">
+            <div class="ImagenFondo">
+            </div>
+            <div class="FormularioUsuario">
+                <div class="LabelUsuario">
+                    <label for="TxtPrimerNombre" name="LabPrimerNombre" >Primer Nombre</label>
+                    <label for="TxtSegundoNombre" name="LabSegundoNombre" >Segundo Nombre</label>
+                </div>
+                
+                <div class="CamposDeTexto">
+                    <input type="text" name="TxtPrimerNombre" [(ngModel)]="ObtEmpleado.Primer_Nombre" />
+                    <input type="text" name="TxtSegundoNombre"  [(ngModel)]="ObtEmpleado.Segundo_Nombre"/>
+                </div>
+
+                <div class="LabelUsuario">
+                    <label for="TxtPrimerApellido" name="LabPrimerApellido" >Primer Apellido</label>
+                    <label for="TxtSegundoApellido" name="LabSegundoApellido" >Segundo Apellido</label>
+                </div>
+                
+                <div class="CamposDeTexto">
+                    <input type="text" name="TxtPrimerApellido"  [(ngModel)]="ObtEmpleado.Primer_Apellido"/>
+                    <input type="text" name="TxtSegundoApellido"  [(ngModel)]="ObtEmpleado.Segundo_Apellido"/>
+                </div>
+
+                <div class="LabelUsuario">
+                    <label for="TxtCorreo" name="LabCorreo" >Correo</label>
+                    <label for="TxtDireccion" name="LabDireccion" >Direccion</label>
+                </div>
+                
+                <div class="CamposDeTexto">
+                    <input type="text" name="TxtCorreo" [(ngModel)]="ObtEmpleado.Correo"/>
+                    <input type="text" name="TxtDireccion" [(ngModel)]="ObtEmpleado.Direccion"/>
+                </div>
+
+                <div class="LabelUsuario">
+                    <label for="TxtTelefonoCelular" name="LabTelefonoCelular" >Telefono Celular</label>
+                    <label for="TxtTelefonoFijo" name="LabTelefonoFijo" >Telefono Fijo</label>
+                </div>
+                
+                <div class="CamposDeTexto">
+                    <input type="text" name="TxtTelefonoCelular" [(ngModel)]="ObtEmpleado.Telefono_Celular"/>
+                    <input type="text" name="TxtTelefonoFijo" [(ngModel)]="ObtEmpleado.Telefono_Fijo"/>
+                </div>
+
+                <div class="LabelUsuario">
+                    <label for="TxtIdentificacion" name="LabIdentificacion" >Identificacion</label>
+                    <label for="TxtContrasena" name="LabContrasena" >Contraseña</label>
+                </div>
+                
+                <div class="CamposDeTexto">
+                    <input type="text" name="TxtIdentificacion" [(ngModel)]="ObtEmpleado.Username"/>
+                    <input type="text" name="TxtContrasena" [(ngModel)]="ObtEmpleado.Contrasena"/>
+                </div>
+                
+                <div class="LabelUsuario">
+                    <label for="CMBPermisos" name="LabPermiso" >Permiso</label>
+                    <label for="CMBEstadoEmpleado" name="LabEstadoEmpleado" >Estado Empleado</label>
+                </div>
+
+                <div class="selects">
+                    <select name="CMBPermisos" id="CMBPermisos" [(ngModel)]="listaPermisos">
+                        <option value="1" label="Administrador"></option>
+                        <option value="2" label="Recepcion"></option>
+                        <option value="3" label="Tecnico"></option>
+                    </select>
+
+                    <select name="CMBEstadoEmpleado" id="CMBEstadoEmpleado" [(ngModel)]="ObtEmpleado.FK_IdEstadoEmpleado">
+                    </select>
+                </div>               
+                
+                <div class="botones">
+                    <button id="BotonSalida" (click)='OpcionAdministrador = "ActualizarUsuario"' ></button>
+                    <button id="Boton" (click)="MostrarEmpleado();">Editar</button>
+                </div>
+            </div>
+        </div>
+       
+            
+       
     </ng-container> 
 
 

@@ -11,6 +11,6 @@ export interface InterfaceEmpleado{
     Telefono_Fijo	    :string;
     Contrasena	        :string;
     Username		    :string;
-    Permisos            :string;
+    FK_IdPermisos       :number;
     FK_IdEstadoEmpleado :number;
 }

@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecepcionComponent implements OnInit {
 
+  OpcionAdministrador = "Inicio";
+  
   constructor() { }
 
   ngOnInit() {

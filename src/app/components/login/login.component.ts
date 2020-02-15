@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
         Telefono_Fijo	          :'',
         Contrasena	            :'',
         Username		            :'',
-        Permisos                :'',
+        FK_IdPermisos           :1,
         FK_IdEstadoEmpleado     :1
   };
 

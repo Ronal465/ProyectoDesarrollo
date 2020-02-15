@@ -1,21 +1,103 @@
+<ng-container class="ContainerAdministrador" >
+    <ng-container class="CrearUsuario" *ngIf='OpcionAdministrador == "CrearCliente"'>
+        <div class="cuadricula">
+            <div class="ImagenFondo">
+            </div>
+            <div class="FormularioUsuario">
+                <div class="LabelUsuario">
+                    <label for="TxtPrimerNombre" name="LabPrimerNombre" >Primer Nombre</label>
+                    <label for="TxtSegundoNombre" name="LabSegundoNombre" >Segundo Nombre</label>
+                </div>
+                
+                <div class="CamposDeTexto">
+                    <input type="text" name="TxtPrimerNombre" [(ngModel)]="ObtEmpleado.Primer_Nombre" />
+                    <input type="text" name="TxtSegundoNombre"  [(ngModel)]="ObtEmpleado.Segundo_Nombre"/>
+                </div>
 
+                <div class="LabelUsuario">
+                    <label for="TxtPrimerApellido" name="LabPrimerApellido" >Primer Apellido</label>
+                    <label for="TxtSegundoApellido" name="LabSegundoApellido" >Segundo Apellido</label>
+                </div>
+                
+                <div class="CamposDeTexto">
+                    <input type="text" name="TxtPrimerApellido"  [(ngModel)]="ObtEmpleado.Primer_Apellido"/>
+                    <input type="text" name="TxtSegundoApellido"  [(ngModel)]="ObtEmpleado.Segundo_Apellido"/>
+                </div>
 
-<ng-container class="ContainerRecepcion">
+                <div class="LabelUsuario">
+                    <label for="TxtCorreo" name="LabCorreo" >Correo</label>
+                    <label for="TxtDireccion" name="LabDireccion" >Direccion</label>
+                </div>
+                
+                <div class="CamposDeTexto">
+                    <input type="text" name="TxtCorreo" [(ngModel)]="ObtEmpleado.Correo"/>
+                    <input type="text" name="TxtDireccion" [(ngModel)]="ObtEmpleado.Direccion"/>
+                </div>
 
-    <ng-container class="CrearCliente" >
-        <div class="LabelUsuario">
-            <label for="CMBTipoDocumento" name="LabTipoIdentificacion" >Tipo Identificacion</label>
-        </div>
-        
-        <div class="">
-            <select name="CMBTipoDocumento" >
-                <option value="1" label="Targeta De Identidad"></option>
-                <option value="2" label="Cedula Ciudadana"></option>
-            </select>
+                <div class="LabelUsuario">
+                    <label for="TxtTelefonoCelular" name="LabTelefonoCelular" >Telefono Celular</label>
+                    <label for="TxtTelefonoFijo" name="LabTelefonoFijo" >Telefono Fijo</label>
+                </div>
+                
+                <div class="CamposDeTexto">
+                    <input type="text" name="TxtTelefonoCelular" [(ngModel)]="ObtEmpleado.Telefono_Celular"/>
+                    <input type="text" name="TxtTelefonoFijo" [(ngModel)]="ObtEmpleado.Telefono_Fijo"/>
+                </div>
+
+                <div class="LabelUsuario">
+                    <label for="TxtIdentificacion" name="LabIdentificacion" >Identificacion</label>
+                    <label for="TxtContrasena" name="LabContrasena" >Contraseña</label>
+                </div>
+                
+                <div class="CamposDeTexto">
+                    <input type="text" name="TxtIdentificacion" [(ngModel)]="ObtEmpleado.Username"/>
+                    <input type="text" name="TxtContrasena" [(ngModel)]="ObtEmpleado.Contrasena"/>
+                </div>
+                
+                <div class="LabelUsuario">
+                    <label for="CMBPermisos" name="LabPermiso" >Permiso</label>
+                    <label for="CMBEstadoEmpleado" name="LabEstadoEmpleado" >Estado Empleado</label>
+                </div>
+
+                <div class="selects">
+                    <select name="CMBPermisos" id="CMBPermisos" [(ngModel)]="ObtEmpleado.Permisos">
+                        <option value="1" label="Administrador"></option>
+                        <option value="2" label="Recepcion"></option>
+                        <option value="3" label="Tecnico"></option>
+                    </select>
+
+                    <select name="CMBEstadoEmpleado" id="CMBEstadoEmpleado" [(ngModel)]="ObtEmpleado.FK_IdEstadoEmpleado">
+                    </select>
+                </div>               
+                
+                <div class="botones">
+                    <button id="BotonSalida" (click)='OpcionAdministrador = "Inicio"' ></button>
+                    <button id="Boton" (click)="CrearUsuario()">Crear Usuario</button>
+                </div>
+            </div>
         </div>
     </ng-container>
+    <ng-container class="Inicio" *ngIf='OpcionAdministrador == "Inicio"'>
+        <div class="cuadricula">
+            <div class="ImagenFondo">
+            </div>
+            <div class="Opciones">
+                <div class="OpcionesAdministrador">
+                    <img src="https://image.flaticon.com/icons/svg/1626/1626100.svg">
+                    <button  (click)='OpcionAdministrador = "CrearCliente";' >Crear Cliente</button>
+                </div>
+                <div class="OpcionesAdministrador">
+                    <img src="https://image.flaticon.com/icons/svg/329/329825.svg">
+                    <button  >Registro Equipo</button>
+                </div>
+                <div class="OpcionesAdministrador">
+                    <img src="https://image.flaticon.com/icons/svg/1410/1410009.svg">
+                    <button  >Generar Solicitud De Servicio</button>
+                </div>
 
-
-
-
+            </div>
+        </div>
+        
+        
+    </ng-container>
 </ng-container>
