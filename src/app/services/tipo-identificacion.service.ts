@@ -6,17 +6,18 @@ import {Observable} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class PermisosEmpleadoServices {
+export class TipoIdentificacionService {
 
   Apli_URL = 'http://localhost:3000/api';
   
   
   constructor(private http : HttpClient ) {}
 
-   getListPermisosEmpleado() : Observable<any>{
+   getListTipoIdentificacion() : Observable<any>{
       
-    return this.http.get(`${this.Apli_URL}/PermisosEmpleado/list`);
+    return this.http.get(`${this.Apli_URL}/TipoIdentificacion/list`);
     
   } 
   
 }
+

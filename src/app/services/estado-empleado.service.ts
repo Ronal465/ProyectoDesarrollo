@@ -1,6 +1,5 @@
 import {Injectable } from '@angular/core';
-import {HttpClient,HttpHeaders, HttpClientModule}  from '@angular/common/http'; // Sirve Para hacer peticiones http
-import {InterfaceEmpleado} from '../models/InterfaceEmpleado';
+import {HttpClient}  from '@angular/common/http'; // Sirve Para hacer peticiones http
 import {Observable} from 'rxjs';
 
 @Injectable({

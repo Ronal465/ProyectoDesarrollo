@@ -46,7 +46,7 @@ export class AdministradorComponent implements OnInit {
 
   BuscarEmpleado = '';
 
-  listaPermisos = 1;
+  ContraseñaAnterior = "";
 
   OpcionAdministrador: string = "Inicio";
 
@@ -66,7 +66,6 @@ export class AdministradorComponent implements OnInit {
   MostrarEmpleado() {
     console.log(this.ObtEmpleado);
   }
-
   RellenarListas(IntOpcion: number) {
     if (IntOpcion == 1) {
       this.EstadoEmpleadoService.getListEmpleados().subscribe(
@@ -120,24 +119,68 @@ export class AdministradorComponent implements OnInit {
     }
 
   }
-
   Mostrar(cosa) {
     console.log(cosa);
   }
   ActualizarEditar(IntIdentificaicon) {
+    this.LimpiarObtUsuario();
+    this.RellenarListas(2);
+    this.RellenarListas(1);
 
     this.EmpleadoService.getEmpleado(IntIdentificaicon).subscribe(
       res => {
-        this.ObtEmpleado = null;
+
         this.ObtEmpleado = res;
+        this.ContraseñaAnterior = this.ObtEmpleado.Contrasena;
+        this.ObtEmpleado.Contrasena = '';
+
       },
       err => {
 
       }
     )
 
+
+
   }
   UpdateUsuario() {
+
+
+    if (this.ObtEmpleado.Contrasena == '') {
+      this.ObtEmpleado.Contrasena = this.ContraseñaAnterior;
+
+      this.EmpleadoService.UpdateEmpleado(this.ObtEmpleado.Id_Empleado, this.ObtEmpleado).subscribe(
+        res => {
+          alert("Se Actualizo Con Exito");
+        },
+        err => {
+
+        }
+      )
+    } else {
+
+      this.EmpleadoService.EncriptarContraseña(this.ObtEmpleado.Contrasena).subscribe(
+        res => {
+          this.ObtEmpleado.Contrasena = res;
+          this.EmpleadoService.UpdateEmpleado(this.ObtEmpleado.Id_Empleado, this.ObtEmpleado).subscribe(
+            res => {
+              alert("Se Actualizo Con Exito");
+            },
+            err => {
+              alert("Hubo Un Error En El Sistema");
+            }
+          )
+
+        },
+        err => {
+
+        }
+      )
+
+    }
+
+
+
   }
   CrearUsuario() {
 
@@ -189,14 +232,14 @@ export class AdministradorComponent implements OnInit {
       vacio4 = false;
     }
 
-  
+
     if (!vacio1 && !vacio2 && !vacio3 && !vacio4) {
       this.ObtEmpleado.Id_Empleado = null;
 
 
 
       this.EmpleadoService.EncriptarContraseña(this.ObtEmpleado.Contrasena).subscribe(
-        res=>{
+        res => {
 
           this.ObtEmpleado.Contrasena = res;
 
@@ -206,14 +249,31 @@ export class AdministradorComponent implements OnInit {
               this.ObtEmpleado.Contrasena = "";
             },
             err => {
-    
+
             }
-    
+
           )
         }
       )
 
-      
+
+    }
+  }
+  LimpiarObtUsuario() {
+    this.ObtEmpleado = {
+      Id_Empleado: 0,
+      Primer_Nombre: '',
+      Segundo_Nombre: '',
+      Primer_Apellido: '',
+      Segundo_Apellido: '',
+      Correo: '',
+      Direccion: '',
+      Telefono_Celular: '',
+      Telefono_Fijo: '',
+      Contrasena: '',
+      Username: '',
+      FK_IdPermisos: 1,
+      FK_IdEstadoEmpleado: 1
     }
   }
 

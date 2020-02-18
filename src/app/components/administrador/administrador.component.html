@@ -9,7 +9,7 @@
             <div class="Opciones">
                 <div class="OpcionesAdministrador">
                     <img src="https://image.flaticon.com/icons/png/512/283/283516.png">
-                    <button  (click)='OpcionAdministrador = "CrearUsuario"; RellenarListas(1); RellenarListas(2);' >Crear Usuario</button>
+                    <button  (click)='OpcionAdministrador = "CrearUsuario"; RellenarListas(1); RellenarListas(2); LimpiarObtUsuario();' >Crear Usuario</button>
                 </div>
                 <div class="OpcionesAdministrador">
                     <img src="https://image.flaticon.com/icons/svg/761/761824.svg">
@@ -139,7 +139,7 @@
                                 <td>{{Empleado.Primer_Nombre}} </td>
                                 <td>{{Empleado.Primer_Apellido}} </td>
                                 <td>{{Empleado.Username}} </td>
-                                <button  (click)='OpcionAdministrador = "Editar" ;RellenarListas(1);  ActualizarEditar(Empleado.Username);'> Editar</button>
+                                <button  (click)=' this.OpcionAdministrador = "Editar";   ActualizarEditar(Empleado.Username); '> Editar</button>
                         </tr>
                     </div>
                     <div class="botones">
@@ -210,10 +210,7 @@
                 </div>
 
                 <div class="selects">
-                    <select name="CMBPermisos" id="CMBPermisos" [(ngModel)]="listaPermisos">
-                        <option value="1" label="Administrador"></option>
-                        <option value="2" label="Recepcion"></option>
-                        <option value="3" label="Tecnico"></option>
+                    <select name="CMBPermisos" id="CMBPermisos" [(ngModel)]="ObtEmpleado.FK_IdPermisos">
                     </select>
 
                     <select name="CMBEstadoEmpleado" id="CMBEstadoEmpleado" [(ngModel)]="ObtEmpleado.FK_IdEstadoEmpleado">
@@ -222,7 +219,7 @@
                 
                 <div class="botones">
                     <button id="BotonSalida" (click)='OpcionAdministrador = "ActualizarUsuario"' ></button>
-                    <button id="Boton" (click)="MostrarEmpleado();">Editar</button>
+                    <button id="Boton" (click)="UpdateUsuario();">Editar</button>
                 </div>
             </div>
         </div>
