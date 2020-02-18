@@ -1,7 +1,7 @@
 
 
 
-<ng-container *ngIf="SeccionLogin" class='ContainerLogin' >
+<ng-container *ngIf="BoolSeccionLogin" class='ContainerLogin' >
     <div class="cuadricula">
     <div class="Login">
 
@@ -34,7 +34,7 @@
         <div class="botones">
         <button  id="BLogin" (click)="Loguearse()"> Acceder </button>
         <br/><br/>
-        <button  id="BSeccionRecueprar" (click)="SeccionLogin = false"> Recuperar Contrasena </button>
+        <button  id="BSeccionRecueprar" (click)="BoolSeccionLogin = false"> Recuperar Contrasena </button>
         </div>
         
 
@@ -46,7 +46,7 @@
 </div>
 </ng-container>
 
-<ng-container *ngIf="!SeccionLogin" >
+<ng-container *ngIf="!BoolSeccionLogin" >
 <div class="cuadricula">
     <div class="Recuperar">
     
@@ -73,7 +73,7 @@
              </div>  
              <br/>
              <div class="botones">
-                <button  id="BSeccionLogin" (click)="SeccionLogin = true">Loguearse</button>
+                <button  id="BSeccionLogin" (click)="BoolSeccionLogin = true">Loguearse</button>
              </div>
             
 
