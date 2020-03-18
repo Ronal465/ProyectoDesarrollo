@@ -1,4 +1,8 @@
-
+<!-- Autor:
+     Ronaldo Carlos Rodriguez Perez
+     Ultima Edicion Por:
+     Ronaldo Carlos Rodriguez Perez
+ -->
 
 <ng-container class="ContainerAdministrador" >
 
@@ -13,7 +17,7 @@
                 </div>
                 <div class="OpcionesAdministrador">
                     <img src="https://image.flaticon.com/icons/svg/761/761824.svg">
-                    <button  (click)='OpcionAdministrador = "ActualizarUsuario";' >Actualizar Usuario</button>
+                    <button  (click)='OpcionAdministrador = "ActualizarUsuario"; ActualizarListEmpleados()' >Actualizar Usuario</button>
                 </div>
                 <div class="OpcionesAdministrador">
                     <img src="https://image.flaticon.com/icons/svg/2491/2491008.svg">
@@ -139,7 +143,7 @@
                                 <td>{{Empleado.Primer_Nombre}} </td>
                                 <td>{{Empleado.Primer_Apellido}} </td>
                                 <td>{{Empleado.Username}} </td>
-                                <button  (click)=' this.OpcionAdministrador = "Editar";   ActualizarEditar(Empleado.Username); '> Editar</button>
+                                <button  (click)=' this.OpcionAdministrador = "Editar";   ActualizarEditar(Empleado.Username);  '> Editar</button>
                         </tr>
                     </div>
                     <div class="botones">
@@ -219,7 +223,7 @@
                 
                 <div class="botones">
                     <button id="BotonSalida" (click)='OpcionAdministrador = "ActualizarUsuario"' ></button>
-                    <button id="Boton" (click)="UpdateUsuario();">Editar</button>
+                    <button id="Boton" (click)="UpdateUsuario();">Actualizar Usuario</button>
                 </div>
             </div>
         </div>

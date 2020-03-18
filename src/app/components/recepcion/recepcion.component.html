@@ -1,3 +1,9 @@
+<!-- Autor:
+     Ronaldo Carlos Rodriguez Perez
+     Ultima Edicion Por:
+     Ronaldo Carlos Rodriguez Perez
+ -->
+
 <ng-container class="ContainerAdministrador" >
     <ng-container class="CrearUsuario" *ngIf='OpcionAdministrador == "CrearCliente"'>
         <div class="cuadricula">
@@ -65,7 +71,7 @@
                 </div>
                 <div class="OpcionesAdministrador">
                     <img src="https://image.flaticon.com/icons/svg/329/329825.svg">
-                    <button  >Registro Equipo</button>
+                    <button (click)='OpcionAdministrador = "CrearRadio"' >Registro Equipo</button>
                 </div>
                 <div class="OpcionesAdministrador">
                     <img src="https://image.flaticon.com/icons/svg/1410/1410009.svg">
@@ -78,6 +84,79 @@
         
     </ng-container>
     <ng-container class="CrearRadio" *ngIf='OpcionAdministrador == "CrearRadio"'  >
+        <div class="cuadricula2">
+            <div class="ImagenFondo">
+            </div>
+            <div class="FormularioUsuario">
+                <div class="LabelUsuario">
+                    <label for="TxtBuscarCliente" name="LabBuscarCliente"   >Buscar Cliente</label>
+                   
+                </div>
+                <div class="CamposDeTexto">
+                    <input type="text" name="TxtBuscarCliente"   list="CMBBuscarCliente" [(ngModel)] ="BuscarCliente"  />
+                </div>
+                <datalist id="CMBBuscarCliente"   >
+                 
+                    <option [value]="Cliente.Id_cliente" *ngFor="let Cliente of ListaClientes | buscadorCliente:BuscarCliente " >
+                      
+                       <label>{{Cliente.primer_Nombre}} {{Cliente.segundo_Nombre}}
+                        {{Cliente.primer_Apellido}} {{Cliente.segundo_Apellido}}
+                       </label>
+                   </option>  
+                
+                </datalist>
 
+                <div class="LabelUsuario">
+                    <label for="TxtBuscarMarca" name="LabBuscarMarca"   >Buscar Marca</label>
+                </div>
+                <div class="CamposDeTexto">
+                    <input type="text"  name="TxtBuscarMarca" (change)="ActualizarModelos($event)"  list="CMBBuscarMarca" [(ngModel)] ="BuscarMarca" />
+                </div>
+                <datalist id="CMBBuscarMarca"  >
+                 
+                    <option [value]="Marca.IdMarca" *ngFor="let Marca of ListaMarcas " >
+                       <label>{{Marca.Descripcion}}</label>
+                   </option>  
+                
+                </datalist>
+
+                <div class="LabelUsuario">
+                    <label for="TxtBuscarModelo" name="LabBuscarModelo"   >Buscar Modelo</label>
+                </div>
+                <div class="CamposDeTexto">
+                    <input type="text"  name="TxtBuscarModelo" list="CMBBuscarModelo" [(ngModel)] ="BuscarModelo" />
+                </div>
+                <datalist id="CMBBuscarModelo"  >
+                 
+                    <option [value]="Modelo.IdModelo" *ngFor="let Modelo of ListaModelos " >
+                       <label>{{Modelo.Descripcion}}</label>
+                   </option>  
+                
+                </datalist>
+
+                <div class="LabelUsuario">
+                    <label for="TxtNumeroSerie" name="LabNumeroSerie" >Numero Serie</label>
+                </div>
+                <div class="CamposDeTexto">
+                    <input type="text"  name="TxtNumeroSerie"  [(ngModel)] ="ObtEquipo.Serie" />
+                </div>
+
+                <div class="LabelUsuario">
+                    <label for="TxtDescripcion" name="LabDescipcion" >Descipción</label>
+                </div>
+                <div class="CamposDeTexto">
+                    <input type="text"  name="TxtDescripcion"  [(ngModel)] ="ObtEquipo.Observaciones" />
+                </div>
+
+               
+                
+
+
+                <button (click)="Mostrar(BuscarCliente);">Mostrar</button>
+                
+
+
+            </div>
+        </div>
     </ng-container>
 </ng-container>

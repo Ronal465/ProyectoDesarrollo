@@ -4,6 +4,12 @@ import { EstadoEmpleadoService } from '../../services/estado-empleado.service';
 import { EmpleadoService } from '../../services/empleado.service';
 import { PermisosEmpleadoServices } from "../../services/permisos-empleado.service";
 
+/* Autor:
+   Ronaldo Carlos Rodriguez Perez
+   Ultima Edicion Por:
+   Ronaldo Carlos Rodriguez Perez
+*/
+
 @Component({
   selector: 'app-administrador',
   templateUrl: './administrador.component.html',
@@ -56,15 +62,15 @@ export class AdministradorComponent implements OnInit {
 
 
   ngOnInit() {
+
+  }
+
+  ActualizarListEmpleados(){
     this.EmpleadoService.getEmpleados().subscribe(
       res => {
         this.ListaEmpleados = res;
       }
     )
-  }
-
-  MostrarEmpleado() {
-    console.log(this.ObtEmpleado);
   }
   RellenarListas(IntOpcion: number) {
     if (IntOpcion == 1) {
@@ -245,7 +251,7 @@ export class AdministradorComponent implements OnInit {
 
           this.EmpleadoService.CreateEmpleado(this.ObtEmpleado).subscribe(
             res => {
-              alert(res.message);
+              alert("El Empleado Ha Sido Creado Con Éxito");
               this.ObtEmpleado.Contrasena = "";
             },
             err => {

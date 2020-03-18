@@ -11,6 +11,7 @@ import { RecepcionComponent } from './components/recepcion/recepcion.component';
 import { TecnicoComponent } from './components/tecnico/tecnico.component';
 import { AdministradorComponent } from './components/administrador/administrador.component';
 import { BuscadorPipe } from './pipes/buscador.pipe';
+import { BuscadorClientePipe } from './pipes/buscador-cliente.pipe';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { BuscadorPipe } from './pipes/buscador.pipe';
     RecepcionComponent,
     TecnicoComponent,
     AdministradorComponent,
-    BuscadorPipe
+    BuscadorPipe,
+    BuscadorClientePipe
   ],
   imports: [
     BrowserModule,
