@@ -3,6 +3,8 @@ import { InterfaceEmpleado } from '../../models/InterfaceEmpleado';
 import { EstadoEmpleadoService } from '../../services/estado-empleado.service';
 import { EmpleadoService } from '../../services/empleado.service';
 import { PermisosEmpleadoServices } from "../../services/permisos-empleado.service";
+import { Router } from "@angular/router";
+
 
 /* Autor:
    Ronaldo Carlos Rodriguez Perez
@@ -57,7 +59,8 @@ export class AdministradorComponent implements OnInit {
   OpcionAdministrador: string = "Inicio";
 
   constructor(private EstadoEmpleadoService: EstadoEmpleadoService, private EmpleadoService: EmpleadoService,
-    private PermisosEmpleadoServices: PermisosEmpleadoServices) { }
+    private PermisosEmpleadoServices: PermisosEmpleadoServices,
+    private Router: Router) { }
 
 
 
@@ -65,7 +68,7 @@ export class AdministradorComponent implements OnInit {
 
   }
 
-  ActualizarListEmpleados(){
+  ActualizarListEmpleados() {
     this.EmpleadoService.getEmpleados().subscribe(
       res => {
         this.ListaEmpleados = res;
@@ -124,9 +127,6 @@ export class AdministradorComponent implements OnInit {
       )
     }
 
-  }
-  Mostrar(cosa) {
-    console.log(cosa);
   }
   ActualizarEditar(IntIdentificaicon) {
     this.LimpiarObtUsuario();
@@ -190,59 +190,57 @@ export class AdministradorComponent implements OnInit {
   }
   CrearUsuario() {
 
-    var vacio1 = false;
-    var vacio2 = false;
-    var vacio3 = false;
-    var vacio4 = false;
+    var Boolvacio1 = false;
+    var Boolvacio2 = false;
+    var Boolvacio3 = false;
+    var Boolvacio4 = false;
 
     if (this.ObtEmpleado.Primer_Nombre == '') {
       let username = document.getElementsByName("TxtPrimerNombre");
       username[0].style.borderBottomColor = "red";
-      vacio1 = true;
+      Boolvacio1 = true;
 
     } else {
       let username = document.getElementsByName("TxtPrimerNombre");
       username[0].style.borderBottomColor = "black";
-      vacio1 = false;
+      Boolvacio1 = false;
     }
 
     if (this.ObtEmpleado.Primer_Apellido == '') {
       let username = document.getElementsByName("TxtPrimerApellido");
       username[0].style.borderBottomColor = "red";
-      vacio2 = true;
+      Boolvacio2 = true;
 
     } else {
       let username = document.getElementsByName("TxtPrimerApellido");
       username[0].style.borderBottomColor = "black";
-      vacio2 = false;
+      Boolvacio2 = false;
     }
     if (this.ObtEmpleado.Username == '') {
       let username = document.getElementsByName("TxtIdentificacion");
       username[0].style.borderBottomColor = "red";
-      vacio3 = true;
+      Boolvacio3 = true;
 
     } else {
       let username = document.getElementsByName("TxtIdentificacion");
       username[0].style.borderBottomColor = "black";
-      vacio3 = false;
+      Boolvacio3 = false;
     }
 
     if (this.ObtEmpleado.Contrasena == '') {
       let username = document.getElementsByName("TxtContrasena");
       username[0].style.borderBottomColor = "red";
-      vacio4 = true;
+      Boolvacio4 = true;
 
     } else {
       let username = document.getElementsByName("TxtContrasena");
       username[0].style.borderBottomColor = "black";
-      vacio4 = false;
+      Boolvacio4 = false;
     }
 
 
-    if (!vacio1 && !vacio2 && !vacio3 && !vacio4) {
+    if (!Boolvacio1 && !Boolvacio2 && !Boolvacio3 && !Boolvacio4) {
       this.ObtEmpleado.Id_Empleado = null;
-
-
 
       this.EmpleadoService.EncriptarContraseña(this.ObtEmpleado.Contrasena).subscribe(
         res => {
@@ -282,5 +280,12 @@ export class AdministradorComponent implements OnInit {
       FK_IdEstadoEmpleado: 1
     }
   }
+  Recepcionista() {
+    this.Router.navigateByUrl(`/Recepcion`);
+  }
+  Tecnico() {
+    this.Router.navigateByUrl(`/Tecnico`);
+  }
+
 
 }

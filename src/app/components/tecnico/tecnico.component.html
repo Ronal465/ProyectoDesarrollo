@@ -3,3 +3,32 @@
      Ultima Edicion Por:
      Ronaldo Carlos Rodriguez Perez
  -->
+ <ng-container class="Inicio" *ngIf='OpcionTecnico == "Inicio"'>
+    <div class="cuadricula">
+        <div class="ImagenFondo">
+        </div>
+        <div class="Opciones">
+            <div class="OpcionesTecnico">
+                <img src="https://image.flaticon.com/icons/svg/702/702010.svg">
+                <button (click)='OpcionTecnico = "CrearRepuestos"'>Crear Repuesto</button>
+            </div>
+            <div class="OpcionesTecnico">
+                <img src="https://image.flaticon.com/icons/svg/1410/1410009.svg">
+                <button>Gestion Solicitudes Equipos</button>
+            </div>
+
+        </div>
+    </div>
+
+
+</ng-container>
+<ng-container class="Inicio" *ngIf='OpcionTecnico == "CrearRepuestos"'>
+    <div class="cuadricula">
+        <div class="ImagenFondo">
+        </div>
+        <div class="FormularioRepuestos">        
+        </div>
+    </div>
+
+
+</ng-container>

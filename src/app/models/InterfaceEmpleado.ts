@@ -1,5 +1,9 @@
 export interface InterfaceEmpleado{
-
+/* Autor:
+   Ronaldo Carlos Rodriguez Perez
+   Ultima Edicion Por:
+   Ronaldo Carlos Rodriguez Perez
+*/
     Id_Empleado         :number;
     Primer_Nombre       :string;
     Segundo_Nombre      :string;

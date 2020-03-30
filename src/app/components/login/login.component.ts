@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { EmpleadoService } from '../../services/empleado.service';
 import { InterfaceEmpleado } from 'src/app/models/InterfaceEmpleado';
 import { CorreoService } from '../../services/correo.service';
-import { Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
 
 /* Autor:
    Ronaldo Carlos Rodriguez Perez
@@ -46,7 +47,8 @@ export class LoginComponent implements OnInit {
   private ObtEmpleadoObtenido: InterfaceEmpleado;
   BoolSeccionLogin: boolean = true;
 
-  constructor(private empleadoService: EmpleadoService, private correoService: CorreoService) { }
+  constructor(private empleadoService: EmpleadoService, private correoService: CorreoService,
+              private Router:Router) { }
 
   ngOnInit() {
 
@@ -101,7 +103,14 @@ export class LoginComponent implements OnInit {
                 } else if (this.ObtEmpleadoObtenido.FK_IdEstadoEmpleado == 2) {
                   alert("Empleado Inactivo Por favor Contactar con el administrador");
                 } else {
-                  alert("Login Correcto");
+                  if(this.ObtEmpleadoObtenido.FK_IdPermisos == 1){
+                    this.Router.navigateByUrl(`/Admin`);
+                  }else if (this.ObtEmpleadoObtenido.FK_IdPermisos == 2){
+                    this.Router.navigateByUrl(`/Tecnico`);
+                  }else if (this.ObtEmpleadoObtenido.FK_IdPermisos == 3){
+                    this.Router.navigateByUrl(`/Recepcion`);
+                  }
+                  
                 }
               } else {
                 this.IntIntentosLogin++;

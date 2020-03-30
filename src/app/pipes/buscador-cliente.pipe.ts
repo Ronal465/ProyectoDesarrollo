@@ -1,5 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+/* Autor:
+   Ronaldo Carlos Rodriguez Perez
+   Ultima Edicion Por:
+   Ronaldo Carlos Rodriguez Perez
+*/
+
 @Pipe({
   name: 'buscadorCliente'
 })

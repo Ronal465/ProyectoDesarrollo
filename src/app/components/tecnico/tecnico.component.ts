@@ -14,6 +14,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TecnicoComponent implements OnInit {
 
+  OpcionTecnico = "Inicio";
+
   constructor() { }
 
   ngOnInit() {

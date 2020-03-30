@@ -4,58 +4,59 @@
      Ronaldo Carlos Rodriguez Perez
  -->
 
-<ng-container class="ContainerAdministrador" >
+<ng-container class="ContainerAdministrador">
     <ng-container class="CrearUsuario" *ngIf='OpcionAdministrador == "CrearCliente"'>
         <div class="cuadricula">
             <div class="ImagenFondo">
             </div>
             <div class="FormularioUsuario">
                 <div class="LabelUsuario">
-                    <label for="TxtPrimerNombre" name="LabPrimerNombre" >Primer Nombre</label>
-                    <label for="TxtSegundoNombre" name="LabSegundoNombre" >Segundo Nombre</label>
+                    <label for="TxtPrimerNombre" name="LabPrimerNombre">Primer Nombre</label>
+                    <label for="TxtSegundoNombre" name="LabSegundoNombre">Segundo Nombre</label>
                 </div>
-                
+
                 <div class="CamposDeTexto">
                     <input type="text" name="TxtPrimerNombre" [(ngModel)]="ObtCliente.primer_Nombre" />
-                    <input type="text" name="TxtSegundoNombre"  [(ngModel)]="ObtCliente.segundo_Nombre"/>
+                    <input type="text" name="TxtSegundoNombre" [(ngModel)]="ObtCliente.segundo_Nombre" />
                 </div>
 
                 <div class="LabelUsuario">
-                    <label for="TxtPrimerApellido" name="LabPrimerApellido" >Primer Apellido</label>
-                    <label for="TxtSegundoApellido" name="LabSegundoApellido" >Segundo Apellido</label>
+                    <label for="TxtPrimerApellido" name="LabPrimerApellido">Primer Apellido</label>
+                    <label for="TxtSegundoApellido" name="LabSegundoApellido">Segundo Apellido</label>
                 </div>
-                
+
                 <div class="CamposDeTexto">
-                    <input type="text" name="TxtPrimerApellido"  [(ngModel)]="ObtCliente.primer_Apellido"/>
-                    <input type="text" name="TxtSegundoApellido"  [(ngModel)]="ObtCliente.segundo_Apellido"/>
+                    <input type="text" name="TxtPrimerApellido" [(ngModel)]="ObtCliente.primer_Apellido" />
+                    <input type="text" name="TxtSegundoApellido" [(ngModel)]="ObtCliente.segundo_Apellido" />
                 </div>
 
                 <div class="LabelUsuario">
-                    <label for="TxtDireccion" name="LabDireccion" >Direccion</label>
-                    <label for="TxtTelefono" name="LabTelefonor" >Telefono</label>
+                    <label for="TxtDireccion" name="LabDireccion">Direccion</label>
+                    <label for="TxtTelefono" name="LabTelefonor">Telefono</label>
                 </div>
-                
+
                 <div class="CamposDeTexto">
-                    <input type="text" name="TxtDireccion" [(ngModel)]="ObtCliente.direccion"/>
-                    <input type="text" name="TxtTelefono" [(ngModel)]="ObtCliente.Telefono"/>
+                    <input type="text" name="TxtDireccion" [(ngModel)]="ObtCliente.direccion" />
+                    <input type="text" name="TxtTelefono" [(ngModel)]="ObtCliente.Telefono" />
                 </div>
 
                 <div class="LabelUsuario">
-                    <label for="CMBTipoIdentificacion" name="LabTipoIdentificacion" >Tipo Identificacion</label>
-                    <label for="TxtIdentificacion" name="LabIdentificacion" >Identificacion</label> 
-                </div>   
-                
+                    <label for="CMBTipoIdentificacion" name="LabTipoIdentificacion">Tipo Identificacion</label>
+                    <label for="TxtIdentificacion" name="LabIdentificacion">Identificacion</label>
+                </div>
+
                 <div class="selects">
-                    <select name="CMBTipoIdentificacion" id="CMBTipoIdentificacion" [(ngModel)]="ObtCliente.FK_Tipo_Identificacion">
+                    <select name="CMBTipoIdentificacion" id="CMBTipoIdentificacion"
+                        [(ngModel)]="ObtCliente.FK_Tipo_Identificacion">
                     </select>
-                    <input type="text" name="TxtIdentificacion" [(ngModel)]="ObtCliente.Numero_Identificacion"/>
-                
+                    <input type="text" name="TxtIdentificacion" [(ngModel)]="ObtCliente.Numero_Identificacion" />
+
 
                 </div>
-                
+
                 <div class="botones">
-                    <button id="BotonSalida" (click)='OpcionAdministrador = "Inicio"' ></button>
-                    <button id="Boton" (click)="MostrarCosa(this.ObtCliente)">Crear Cliente</button>
+                    <button id="BotonSalida" (click)='OpcionAdministrador = "Inicio"'></button>
+                    <button id="Boton" (click)="CrearCliente()">Crear Cliente</button>
                 </div>
             </div>
         </div>
@@ -67,96 +68,171 @@
             <div class="Opciones">
                 <div class="OpcionesAdministrador">
                     <img src="https://image.flaticon.com/icons/svg/702/702010.svg">
-                    <button  (click)='OpcionAdministrador = "CrearCliente"; RellenarListas(1);' >Crear Cliente</button>
+                    <button (click)='OpcionAdministrador = "CrearCliente"; RellenarListas(1);'>Crear Cliente</button>
                 </div>
                 <div class="OpcionesAdministrador">
                     <img src="https://image.flaticon.com/icons/svg/329/329825.svg">
-                    <button (click)='OpcionAdministrador = "CrearRadio"' >Registro Equipo</button>
+                    <button (click)='OpcionAdministrador = "CrearRadio"; RellenarListas(2)'>Registro Equipo</button>
                 </div>
                 <div class="OpcionesAdministrador">
                     <img src="https://image.flaticon.com/icons/svg/1410/1410009.svg">
-                    <button  >Generar Solicitud De Servicio</button>
+                    <button>Generar Solicitud De Servicio</button>
                 </div>
 
             </div>
         </div>
-        
-        
+
+
     </ng-container>
-    <ng-container class="CrearRadio" *ngIf='OpcionAdministrador == "CrearRadio"'  >
+    <ng-container class="CrearRadio" *ngIf='OpcionAdministrador == "CrearRadio"'>
         <div class="cuadricula2">
             <div class="ImagenFondo">
             </div>
             <div class="FormularioUsuario">
-                <div class="LabelUsuario">
-                    <label for="TxtBuscarCliente" name="LabBuscarCliente"   >Buscar Cliente</label>
-                   
-                </div>
-                <div class="CamposDeTexto">
-                    <input type="text" name="TxtBuscarCliente"   list="CMBBuscarCliente" [(ngModel)] ="BuscarCliente"  />
-                </div>
-                <datalist id="CMBBuscarCliente"   >
-                 
-                    <option [value]="Cliente.Id_cliente" *ngFor="let Cliente of ListaClientes | buscadorCliente:BuscarCliente " >
-                      
-                       <label>{{Cliente.primer_Nombre}} {{Cliente.segundo_Nombre}}
-                        {{Cliente.primer_Apellido}} {{Cliente.segundo_Apellido}}
-                       </label>
-                   </option>  
-                
-                </datalist>
+                <div class="Cuadricula3">
+                    <div class="LadoIzqueirdo">
+                        <div class="LabelEquipo">
+                            <label for="TxtBuscarCliente" name="LabBuscarCliente">Buscar Cliente</label>
+                        </div>
+                        <div class="CamposDeTextoEquipo">
+                            <input type="text" name="TxtBuscarCliente" list="CMBBuscarCliente"
+                                [(ngModel)]="BuscarCliente" />
+                            <button (click)='OpcionAdministrador = "CrearCliente"; RellenarListas(1);'></button>
+                        </div>
+                        <datalist id="CMBBuscarCliente">
 
-                <div class="LabelUsuario">
-                    <label for="TxtBuscarMarca" name="LabBuscarMarca"   >Buscar Marca</label>
-                </div>
-                <div class="CamposDeTexto">
-                    <input type="text"  name="TxtBuscarMarca" (change)="ActualizarModelos($event)"  list="CMBBuscarMarca" [(ngModel)] ="BuscarMarca" />
-                </div>
-                <datalist id="CMBBuscarMarca"  >
-                 
-                    <option [value]="Marca.IdMarca" *ngFor="let Marca of ListaMarcas " >
-                       <label>{{Marca.Descripcion}}</label>
-                   </option>  
-                
-                </datalist>
+                            <option [value]="Cliente.Id_cliente"
+                                *ngFor="let Cliente of ListaClientes | buscadorCliente:BuscarCliente ">
 
-                <div class="LabelUsuario">
-                    <label for="TxtBuscarModelo" name="LabBuscarModelo"   >Buscar Modelo</label>
-                </div>
-                <div class="CamposDeTexto">
-                    <input type="text"  name="TxtBuscarModelo" list="CMBBuscarModelo" [(ngModel)] ="BuscarModelo" />
-                </div>
-                <datalist id="CMBBuscarModelo"  >
-                 
-                    <option [value]="Modelo.IdModelo" *ngFor="let Modelo of ListaModelos " >
-                       <label>{{Modelo.Descripcion}}</label>
-                   </option>  
-                
-                </datalist>
+                                <label>{{Cliente.primer_Nombre}} {{Cliente.segundo_Nombre}}
+                                    {{Cliente.primer_Apellido}} {{Cliente.segundo_Apellido}}
+                                </label>
+                            </option>
 
-                <div class="LabelUsuario">
-                    <label for="TxtNumeroSerie" name="LabNumeroSerie" >Numero Serie</label>
+                        </datalist>
+                        <div class="LabelEquipo">
+                            <label for="TxtBuscarMarca" name="LabBuscarMarca">Buscar Marca</label>
+                        </div>
+                        <div class="CamposDeTextoEquipo">
+                            <input type="text" name="TxtBuscarMarca" (change)="ActualizarModelos($event)"
+                                list="CMBBuscarMarca" [(ngModel)]="BuscarMarca" />
+                            <button (click)='OpcionAdministrador = "CrearMarca"'></button>
+                        </div>
+                        <datalist id="CMBBuscarMarca">
+
+                            <option [value]="Marca.IdMarca" *ngFor="let Marca of ListaMarcas ">
+                                <label>{{Marca.Descripcion}}</label>
+                            </option>
+
+                        </datalist>
+                        <div class="LabelEquipo">
+                            <label for="TxtBuscarModelo" name="LabBuscarModelo">Buscar Modelo</label>
+                        </div>
+                        <div class="CamposDeTextoEquipo">
+                            <input type="text" name="TxtBuscarModelo" list="CMBBuscarModelo"
+                                [(ngModel)]="BuscarModelo" />
+                        </div>
+                        <datalist id="CMBBuscarModelo">
+
+                            <option [value]="Modelo.IdModelo" *ngFor="let Modelo of ListaModelos ">
+                                <label>{{Modelo.Descripcion}}</label>
+                            </option>
+
+                        </datalist>
+                        <div class="LabelEquipo">
+                            <label for="TxtNumeroSerie" name="LabNumeroSerie">Numero Serie</label>
+                        </div>
+                        <div class="CamposDeTextoEquipo">
+                            <input type="text" name="TxtNumeroSerie" [(ngModel)]="ObtEquipo.Serie" />
+                        </div>
+
+                        <div class="CheckBox">
+                            <input type="checkbox" name="CBTA" id="CBTA" value="1" (click)="SeleccionarCheckBox(1)"
+                                [(ngModel)]="CBTA">
+                            <label for="CBTA" name="LabTA">TA</label>
+                            <input type="checkbox" name="CBPC" id="CBPC" value="2" (click)="SeleccionarCheckBox(2)"
+                                [(ngModel)]="CBPC">
+                            <label for="CBPC" name="LabPC">PC</label>
+                            <input type="checkbox" name="CBPV" id="CBPC" value="3" (click)="SeleccionarCheckBox(3)"
+                                [(ngModel)]="CBPV">
+                            <label for="CBPC" name="LabPV"> PV</label>
+                            <input type="checkbox" name="CBANT" id="CBANT" value="4" (click)="SeleccionarCheckBox(4)"
+                                [(ngModel)]="CBANT">
+                            <label for="CBANT" name="LabANT">ANT</label>
+                        </div>
+
+
+
+                        <div class="botones">
+                            <button id="BotonSalida" (click)='OpcionAdministrador = "Inicio"'></button>
+
+                        </div>
+
+
+                    </div>
+                    <div class="LadoDerecho">
+
+                        <div class="LabelEquipo">
+                            <label for="TxtBuscarCliente" name="LabDanoYObservaciones">Daño Reportado Y
+                                Observaciones</label>
+                        </div>
+                        <div class="TextAreaEquipo">
+                            <textarea [(ngModel)]="ObtEquipo.Observaciones"></textarea>
+                        </div>
+                        <div class="LabelEquipo">
+                            <label for="TxtBuscarCliente" name="LabObservacionesTecnico">Observaciones Tecnico</label>
+                        </div>
+                        <div class="TextAreaEquipo">
+                            <textarea disabled></textarea>
+                        </div>
+
+                        <div class="BotonDerecho">
+                            <button (click)="CrearEquipo()">Guardar</button>
+                        </div>
+
+                    </div>
                 </div>
-                <div class="CamposDeTexto">
-                    <input type="text"  name="TxtNumeroSerie"  [(ngModel)] ="ObtEquipo.Serie" />
-                </div>
-
-                <div class="LabelUsuario">
-                    <label for="TxtDescripcion" name="LabDescipcion" >Descipción</label>
-                </div>
-                <div class="CamposDeTexto">
-                    <input type="text"  name="TxtDescripcion"  [(ngModel)] ="ObtEquipo.Observaciones" />
-                </div>
-
-               
-                
-
-
-                <button (click)="Mostrar(BuscarCliente);">Mostrar</button>
-                
-
 
             </div>
         </div>
     </ng-container>
+    <ng-container class="CrearMarca" *ngIf='OpcionAdministrador == "CrearMarca"'>
+        <div class="cuadricula">
+            <div class="ImagenFondo">
+            </div>
+            <div class="FormularioUsuario">
+
+                <div class="LabelMarca">
+                    <label for="TxtDescripcionMarca" name="LabDescipcionMarca">Descripcion Marca</label>
+                </div>
+                <div class="CamposDeTextoMarcaModelo">
+                    <input type="text" name="TxtDescripcionMarca" [(ngModel)]="MarcaCreada.Descripcion" />
+                </div>
+
+                <div class="LabelMarca">
+                    <label for="TxtDescripcionModelo" name="LabDescipcionModelo">Descripcion Modelo</label>
+                </div>
+                <div class="CamposDeTextoMarcaModelo">
+                    <input type="text" name="TxtDescripcionModelo" [(ngModel)]="ModeloCreado.Descripcion" />
+                    <button (click)="CrearModelo()">Añadir</button>
+                    <button (click)="EliminarUltimoModeloCreado()"> Quitar Ultimo</button>
+                </div>
+                <div class="ListaModelos">
+                    <tr>
+                        <th>Numero</th>
+                        <th>Modelo</th>
+                    </tr>
+                    <tr *ngFor="let Modelo of CreacionModelos">
+                        <th>{{Modelo.IdModelo}}</th>
+                        <th>{{Modelo.Descripcion}}</th>
+                    </tr>
+                </div>
+                <div class="botones">
+                    <button id="BotonSalida" (click)='OpcionAdministrador = "CrearRadio"; RellenarListas(2)'></button>
+                    <button (click)="GuardarMarcaModelo()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
 </ng-container>
