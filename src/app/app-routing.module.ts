@@ -8,7 +8,7 @@ import { TecnicoComponent } from "./components/tecnico/tecnico.component";
 const routes: Routes = [
   {
     path: '',
-    redirectTo:'/Recepcion',
+    redirectTo:'/login',
     pathMatch: 'full'
   },
   {
