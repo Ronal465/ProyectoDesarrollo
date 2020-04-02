@@ -64,7 +64,7 @@ export class RecepcionComponent implements OnInit {
   private ListaMarcas: InterfaceMarca[] = [
     {
       IdMarca: 0,
-      Descripcion: "Sony"
+      Descripcion: ""
     }];
 
   private ListaModelos: InterfaceModelo[] = [
@@ -87,6 +87,7 @@ export class RecepcionComponent implements OnInit {
   BuscarCliente = "";
   BuscarMarca = "";
   BuscarModelo = "";
+  BuscadorCliente = "";
   CBTA;
   CBPC;
   CBPV;
@@ -275,8 +276,13 @@ export class RecepcionComponent implements OnInit {
     var Boolvacio2 = false;
     var Boolvacio3 = false;
     var Boolvacio4 = false;
+    var Boolvacio5 = false;
+    var Boolvacio6 = false;
+    var Boolvacio7 = false;
+    var Boolvacio8 = false;
+    var ValidarIdentificacion = false;
 
-    if (this.ObtCliente.primer_Nombre == '') {
+    if (this.ObtCliente.primer_Nombre == '' || this.ValidarCadenaString(this.ObtCliente.primer_Nombre)) {
       let username = document.getElementsByName("TxtPrimerNombre");
       username[0].style.borderBottomColor = "red";
       Boolvacio1 = true;
@@ -286,8 +292,7 @@ export class RecepcionComponent implements OnInit {
       username[0].style.borderBottomColor = "black";
       Boolvacio1 = false;
     }
-
-    if (this.ObtCliente.primer_Apellido == '') {
+    if (this.ObtCliente.primer_Apellido == '' || this.ValidarCadenaString(this.ObtCliente.primer_Apellido)) {
       let username = document.getElementsByName("TxtPrimerApellido");
       username[0].style.borderBottomColor = "red";
       Boolvacio2 = true;
@@ -297,35 +302,79 @@ export class RecepcionComponent implements OnInit {
       username[0].style.borderBottomColor = "black";
       Boolvacio2 = false;
     }
-    if (this.ObtCliente.direccion == '') {
+
+    this.ClienteService.getClientes().subscribe(
+      res=>{
+        this.ListaClientes = res;
+      }
+    )
+    this.ListaClientes.forEach(element =>{
+      
+      if(this.ObtCliente.Numero_Identificacion == element.Numero_Identificacion){
+        ValidarIdentificacion = true;
+      }
+    })
+
+    if (this.ObtCliente.Numero_Identificacion == '' || this.ValidarNumero(this.ObtCliente.Numero_Identificacion) || ValidarIdentificacion) {
       let username = document.getElementsByName("TxtIdentificacion");
       username[0].style.borderBottomColor = "red";
       Boolvacio3 = true;
 
     } else {
+
+
       let username = document.getElementsByName("TxtIdentificacion");
       username[0].style.borderBottomColor = "black";
       Boolvacio3 = false;
     }
-
     if (this.ObtCliente.direccion == '') {
       let username = document.getElementsByName("TxtDireccion");
       username[0].style.borderBottomColor = "red";
-      Boolvacio4 = false;
+      Boolvacio8 = true;
 
     } else {
       let username = document.getElementsByName("TxtDireccion");
       username[0].style.borderBottomColor = "black";
-      Boolvacio4 = false;
+      Boolvacio8 = false;
     }
 
+    if(this.ValidarCadenaString(this.ObtCliente.segundo_Nombre)){
+      let username = document.getElementsByName("TxtSegundoNombre");
+      username[0].style.borderBottomColor = "red";
+      Boolvacio4 = true;
+    } else {
+      let username = document.getElementsByName("TxtSegundoNombre");
+      username[0].style.borderBottomColor = "black";
+      Boolvacio4 = false;
+    }
+    
+    if(this.ValidarCadenaString(this.ObtCliente.segundo_Apellido)){
+      let username = document.getElementsByName("TxtSegundoApellido");
+      username[0].style.borderBottomColor = "red";
+      Boolvacio5 = true;
+    } else {
+      let username = document.getElementsByName("TxtSegundoApellido");
+      username[0].style.borderBottomColor = "black";
+      Boolvacio6 = false;
+    }
 
+    if(this.ValidarNumero(this.ObtCliente.Telefono)){
+      let username = document.getElementsByName("TxtTelefono");
+      username[0].style.borderBottomColor = "red";
+      Boolvacio7 = true;
+    } else {
+      let username = document.getElementsByName("TxtTelefono");
+      username[0].style.borderBottomColor = "black";
+      Boolvacio7 = false;
+    }
 
-    if (!Boolvacio1 && !Boolvacio2 && !Boolvacio3 && !Boolvacio4) {
+    if (!Boolvacio1 && !Boolvacio2 && !Boolvacio3 &&!Boolvacio4 &&
+        !Boolvacio5 && !Boolvacio6 && !Boolvacio7 && !Boolvacio8) {
 
       this.ClienteService.CrearCliente(this.ObtCliente).subscribe(
         res => {
           alert(res.message);
+          this.LimpiarObtCliente();
         },
         err => {
           alert("Error Al Crear El Usuario");
@@ -470,7 +519,171 @@ export class RecepcionComponent implements OnInit {
 
 
   }
+  ValidarCadenaString(Cadena): boolean {
+    var Validar: boolean = false;
 
+
+    for (var i = 0; i < Cadena.length; i++) {
+      if (!isNaN(Cadena.charAt(i))) {
+        Validar = true;
+      }
+    }
+    return Validar;
+  }
+  ValidarNumero(Cadena): boolean {
+    var Validar: boolean = false;
+
+
+    for (var i = 0; i < Cadena.length; i++) {
+      if (isNaN(Cadena.charAt(i))) {
+        Validar = true;
+      }
+    }
+    return Validar;
+  }
+  ActualizarCliente(identificacion){
+    this.LimpiarObtCliente();
+    this.RellenarListas(1);
+    this.ClienteService.getCliente(identificacion).subscribe(
+      res=>{
+        this.ObtCliente = res;
+      }
+    )
+
+
+  }
+  LimpiarObtCliente(){
+    this.ObtCliente = {
+      Id_cliente: null,
+      FK_Tipo_Identificacion: 1,
+      Numero_Identificacion: '',
+      primer_Nombre: '',
+      segundo_Nombre: '',
+      primer_Apellido: '',
+      segundo_Apellido: '',
+      Telefono: '',
+      direccion: ''
+    }
+  }
+
+  EditarCliente(){
+
+    var Boolvacio1 = false;
+    var Boolvacio2 = false;
+    var Boolvacio3 = false;
+    var Boolvacio4 = false;
+    var Boolvacio5 = false;
+    var Boolvacio6 = false;
+    var Boolvacio7 = false;
+    var Boolvacio8 = false;
+    var ValidarIdentificacion = false;
+
+    if (this.ObtCliente.primer_Nombre == '' || this.ValidarCadenaString(this.ObtCliente.primer_Nombre)) {
+      let username = document.getElementsByName("TxtPrimerNombre");
+      username[0].style.borderBottomColor = "red";
+      Boolvacio1 = true;
+
+    } else {
+      let username = document.getElementsByName("TxtPrimerNombre");
+      username[0].style.borderBottomColor = "black";
+      Boolvacio1 = false;
+    }
+    if (this.ObtCliente.primer_Apellido == '' || this.ValidarCadenaString(this.ObtCliente.primer_Apellido)) {
+      let username = document.getElementsByName("TxtPrimerApellido");
+      username[0].style.borderBottomColor = "red";
+      Boolvacio2 = true;
+
+    } else {
+      let username = document.getElementsByName("TxtPrimerApellido");
+      username[0].style.borderBottomColor = "black";
+      Boolvacio2 = false;
+    }
+
+    this.ClienteService.getClientes().subscribe(
+      res=>{
+        this.ListaClientes = res;
+      }
+    )
+    this.ListaClientes.forEach(element =>{
+      
+      if(this.ObtCliente.Numero_Identificacion == element.Numero_Identificacion){
+        if(this.ObtCliente.Id_cliente == element.Id_cliente){
+          ValidarIdentificacion = false;
+        }else{
+          ValidarIdentificacion = true;
+        }
+       
+      }
+    })
+
+    if (this.ObtCliente.Numero_Identificacion == '' || this.ValidarNumero(this.ObtCliente.Numero_Identificacion) || ValidarIdentificacion) {
+      let username = document.getElementsByName("TxtIdentificacion");
+      username[0].style.borderBottomColor = "red";
+      Boolvacio3 = true;
+
+    } else {
+
+      let username = document.getElementsByName("TxtIdentificacion");
+      username[0].style.borderBottomColor = "black";
+      Boolvacio3 = false;
+    }
+    if (this.ObtCliente.direccion == '') {
+      let username = document.getElementsByName("TxtDireccion");
+      username[0].style.borderBottomColor = "red";
+      Boolvacio8 = true;
+
+    } else {
+      let username = document.getElementsByName("TxtDireccion");
+      username[0].style.borderBottomColor = "black";
+      Boolvacio8 = false;
+    }
+
+    if(this.ValidarCadenaString(this.ObtCliente.segundo_Nombre)){
+      let username = document.getElementsByName("TxtSegundoNombre");
+      username[0].style.borderBottomColor = "red";
+      Boolvacio4 = true;
+    } else {
+      let username = document.getElementsByName("TxtSegundoNombre");
+      username[0].style.borderBottomColor = "black";
+      Boolvacio4 = false;
+    }
+    
+    if(this.ValidarCadenaString(this.ObtCliente.segundo_Apellido)){
+      let username = document.getElementsByName("TxtSegundoApellido");
+      username[0].style.borderBottomColor = "red";
+      Boolvacio5 = true;
+    } else {
+      let username = document.getElementsByName("TxtSegundoApellido");
+      username[0].style.borderBottomColor = "black";
+      Boolvacio6 = false;
+    }
+
+    if(this.ValidarNumero(this.ObtCliente.Telefono)){
+      let username = document.getElementsByName("TxtTelefono");
+      username[0].style.borderBottomColor = "red";
+      Boolvacio7 = true;
+    } else {
+      let username = document.getElementsByName("TxtTelefono");
+      username[0].style.borderBottomColor = "black";
+      Boolvacio7 = false;
+    }
+
+    if (!Boolvacio1 && !Boolvacio2 && !Boolvacio3 &&!Boolvacio4 &&
+        !Boolvacio5 && !Boolvacio6 && !Boolvacio7 && !Boolvacio8) {
+
+          this.ClienteService.update(this.ObtCliente.Id_cliente,this.ObtCliente).subscribe(
+            res=>{
+              alert("El Cliente Ah Sido Actualizado");
+              this.OpcionAdministrador = "ActualizarCliente";
+              this.RellenarListas(2);
+      
+            }
+          )
+
+        }
+    
+    
+  }
 
 
 }

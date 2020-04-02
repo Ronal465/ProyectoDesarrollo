@@ -27,11 +27,19 @@ export class ClienteService {
 
    }
 
-   getClientes() : Observable<any>{
+  getClientes() : Observable<any>{
      
     return this.http.get(`${this.Apli_URL}/Cliente/list`);
     
   } 
 
+  getCliente(StrNumero_Identificacion:String)  : Observable<any>{
+
+    return this.http.get(`${this.Apli_URL}/Cliente/${StrNumero_Identificacion}`);
+  }
+
+  update(StrId,ObtInterfaceCliente:InterfaceCliente){
+    return this.http.post(`${this.Apli_URL}/Cliente/${StrId}`,ObtInterfaceCliente);
+  }
 
 }

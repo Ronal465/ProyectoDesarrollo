@@ -68,7 +68,11 @@
             <div class="Opciones">
                 <div class="OpcionesAdministrador">
                     <img src="https://image.flaticon.com/icons/svg/702/702010.svg">
-                    <button (click)='OpcionAdministrador = "CrearCliente"; RellenarListas(1);'>Crear Cliente</button>
+                    <button (click)='OpcionAdministrador = "CrearCliente";  LimpiarObtCliente(); RellenarListas(1);'>Crear Cliente</button>
+                </div>
+                <div class="OpcionesAdministrador">
+                    <img src="https://image.flaticon.com/icons/svg/788/788918.svg">
+                    <button (click)='OpcionAdministrador = "ActualizarCliente";RellenarListas(2);'> Actualizar Cliente</button>
                 </div>
                 <div class="OpcionesAdministrador">
                     <img src="https://image.flaticon.com/icons/svg/329/329825.svg">
@@ -234,5 +238,96 @@
             </div>
         </div>
     </ng-container>
+    <ng-container class="CrearMarca" *ngIf='OpcionAdministrador == "ActualizarCliente"'>
+        <div class="cuadricula">
+            <div class="ImagenFondo">
+            </div>
+            <div class="Busqueda">
+                <div class="LabelClienteBusqueda">
+                    <label for="TxtBuscarCliente" name="LabIdentificacion" >Ingrese Nombres o Apellidos</label>
+                </div>
+                <div class="CamposDeTextoBusqueda">
+                    <input type="text" name="TxtBuscarCliente"  [(ngModel)]="BuscadorCliente" />
+                </div>
+                <div class="ListaClientes">
+                    <tr>
+                        <th>Primer Nombre</th>
+                        <th>Segundo Nombre</th>
+                        <th>Primer Apellido</th>
+                        <th>Segundo Identificacion</th>
+                        <th>Accion</th>
+                    </tr>
+                    <tr *ngFor="let Cliente of ListaClientes | buscadorCliente:BuscadorCliente" >
 
+                            
+                            <td>{{Cliente.primer_Nombre}}</td>
+                            <td>{{Cliente.segundo_Nombre}} </td>
+                            <td>{{Cliente.primer_Apellido}} </td>
+                            <td>{{Cliente.segundo_Apellido}} </td>
+                            <button (click)="OpcionAdministrador = 'EditarCliente'; ActualizarCliente(Cliente.Numero_Identificacion)" > Editar</button>
+                    </tr>
+                </div>   
+                <div class="botones">
+                    <button id="BotonSalida" (click)='OpcionAdministrador = "Inicio"'></button>
+                </div>      
+            </div>
+
+        </div>
+    </ng-container>
+    <ng-container class="CrearUsuario" *ngIf='OpcionAdministrador == "EditarCliente"'>
+        <div class="cuadricula">
+            <div class="ImagenFondo">
+            </div>
+            <div class="FormularioUsuario">
+                <div class="LabelUsuario">
+                    <label for="TxtPrimerNombre" name="LabPrimerNombre">Primer Nombre</label>
+                    <label for="TxtSegundoNombre" name="LabSegundoNombre">Segundo Nombre</label>
+                </div>
+
+                <div class="CamposDeTexto">
+                    <input type="text" name="TxtPrimerNombre" [(ngModel)]="ObtCliente.primer_Nombre" />
+                    <input type="text" name="TxtSegundoNombre" [(ngModel)]="ObtCliente.segundo_Nombre" />
+                </div>
+
+                <div class="LabelUsuario">
+                    <label for="TxtPrimerApellido" name="LabPrimerApellido">Primer Apellido</label>
+                    <label for="TxtSegundoApellido" name="LabSegundoApellido">Segundo Apellido</label>
+                </div>
+
+                <div class="CamposDeTexto">
+                    <input type="text" name="TxtPrimerApellido" [(ngModel)]="ObtCliente.primer_Apellido" />
+                    <input type="text" name="TxtSegundoApellido" [(ngModel)]="ObtCliente.segundo_Apellido" />
+                </div>
+
+                <div class="LabelUsuario">
+                    <label for="TxtDireccion" name="LabDireccion">Direccion</label>
+                    <label for="TxtTelefono" name="LabTelefonor">Telefono</label>
+                </div>
+
+                <div class="CamposDeTexto">
+                    <input type="text" name="TxtDireccion" [(ngModel)]="ObtCliente.direccion" />
+                    <input type="text" name="TxtTelefono" [(ngModel)]="ObtCliente.Telefono" />
+                </div>
+
+                <div class="LabelUsuario">
+                    <label for="CMBTipoIdentificacion" name="LabTipoIdentificacion">Tipo Identificacion</label>
+                    <label for="TxtIdentificacion" name="LabIdentificacion">Identificacion</label>
+                </div>
+
+                <div class="selects">
+                    <select name="CMBTipoIdentificacion" id="CMBTipoIdentificacion"
+                        [(ngModel)]="ObtCliente.FK_Tipo_Identificacion">
+                    </select>
+                    <input type="text" name="TxtIdentificacion" [(ngModel)]="ObtCliente.Numero_Identificacion" />
+
+
+                </div>
+
+                <div class="botones">
+                    <button id="BotonSalida" (click)='OpcionAdministrador = "ActualizarCliente"'></button>
+                    <button id="Boton" (click)="EditarCliente()">Editar Cliente</button>
+                </div>
+            </div>
+        </div>
+    </ng-container>
 </ng-container>

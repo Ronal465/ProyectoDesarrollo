@@ -122,7 +122,7 @@
 
                     <div class="Busqueda">
                         <div class="LabelUsuarioBusqueda">
-                            <label for="TxtBuscarEmpleado" name="LabIdentificacion" >Ingrese Identificacion</label>
+                            <label for="TxtBuscarEmpleado" name="LabIdentificacion" >Ingrese Numero De Identificacion</label>
                         </div>
                         <div class="CamposDeTextoBusqueda">
                             <input type="text" name="TxtBuscarEmpleado"  [(ngModel)]="BuscarEmpleado" />
@@ -222,7 +222,7 @@
                 </div>               
                 
                 <div class="botones">
-                    <button id="BotonSalida" (click)='OpcionAdministrador = "ActualizarUsuario"' ></button>
+                    <button id="BotonSalida" (click)='OpcionAdministrador = "ActualizarUsuario"; ActualizarListEmpleados();' ></button>
                     <button id="Boton" (click)="UpdateUsuario();">Actualizar Usuario</button>
                 </div>
             </div>
