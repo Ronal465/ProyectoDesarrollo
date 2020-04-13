@@ -4,7 +4,7 @@
      Ronaldo Carlos Rodriguez Perez
  -->
 
-<ng-container class="ContainerAdministrador">
+<ng-container class="ContainerAdministrador" *ngIf="TokenValidar">
     <ng-container class="CrearUsuario" *ngIf='OpcionAdministrador == "CrearCliente"'>
         <div class="cuadricula">
             <div class="ImagenFondo">

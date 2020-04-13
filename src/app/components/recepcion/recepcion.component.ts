@@ -9,7 +9,8 @@ import { MarcamodeloService } from "../../services/marcamodelo.service";
 import { MarcaService } from "../../services/marca.service";
 import { EquipoService } from "../../services/equipo.service";
 import { InterfaceSolicitud } from "../../models/InterfaceSolicitud";
-
+import { AuthServiceService } from "../../services/auth-service.service";
+import { Router } from "@angular/router";
 /* Autor:
    Ronaldo Carlos Rodriguez Perez
    Ultima Edicion Por:
@@ -109,15 +110,35 @@ export class RecepcionComponent implements OnInit {
   private CBPV;
   private CBANT;
 
+  TokenValidar:boolean= false;
 
   constructor(private TipoIdentificacionService: TipoIdentificacionService,
     private MarcamodeloService: MarcamodeloService,
     private MarcaService: MarcaService,
     private ClienteService: ClienteService,
-    private EquipoService: EquipoService) {}
+    private EquipoService: EquipoService,
+    private AuthServiceService :AuthServiceService,
+    private Router : Router) {}
 
   ngOnInit() {
 
+
+    this.AuthServiceService.ValidarLogin().subscribe(
+      res=>{
+        if(res.Validar == true){
+
+          if(res.token.FK_IdPermisos == 2){
+            this.TokenValidar = false;
+          this.Router.navigateByUrl(`/Tecnico`);
+          }else{
+            this.TokenValidar = true;
+          }
+        }else{
+          this.TokenValidar = false;
+          this.Router.navigateByUrl(`/login`);
+        }
+      }
+    )
     this.ClienteService.getClientes().subscribe(
       res => {
         this.ListaClientes = res;

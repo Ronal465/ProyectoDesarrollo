@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { InterfaceRepuesto } from "../../models/InterfaceRepuesto";
 import { RepuestosService } from "../../services/repuestos.service";
-import { element } from 'protractor';
-import { async } from '@angular/core/testing';
+import { AuthServiceService } from "../../services/auth-service.service";
+import { Router } from "@angular/router";
 /* Autor:
    Ronaldo Carlos Rodriguez Perez
    Ultima Edicion Por:
@@ -30,9 +30,30 @@ export class TecnicoComponent implements OnInit {
   }
 
 
-  constructor(private RepuestosService: RepuestosService) { }
+  TokenValidar:boolean = false;
+
+  constructor(private RepuestosService: RepuestosService,
+              private AuthServiceService : AuthServiceService,
+              private Router : Router) { }
 
   ngOnInit() {
+    this.AuthServiceService.ValidarLogin().subscribe(
+      res=>{
+        if(res.Validar == true){
+
+          if(res.token.FK_IdPermisos == 3){
+            this.TokenValidar = false;
+          this.Router.navigateByUrl(`/Recepcion`);
+          }else{
+            this.TokenValidar = true;
+          }
+        }else{
+          this.TokenValidar = false;
+          this.Router.navigateByUrl(`/login`);
+        }
+      }
+    )
+
   }
 
   CrearRepuesto() {

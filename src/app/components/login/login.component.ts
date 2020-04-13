@@ -3,6 +3,7 @@ import { EmpleadoService } from '../../services/empleado.service';
 import { InterfaceEmpleado } from 'src/app/models/InterfaceEmpleado';
 import { CorreoService } from '../../services/correo.service';
 import { Router } from '@angular/router';
+import { AuthServiceService } from "../../services/auth-service.service";
 
 
 /* Autor:
@@ -48,13 +49,13 @@ export class LoginComponent implements OnInit {
   BoolSeccionLogin: boolean = true;
 
   constructor(private empleadoService: EmpleadoService, private correoService: CorreoService,
-              private Router:Router) { }
+    private Router: Router, private AuthServiceService: AuthServiceService) { }
 
   ngOnInit() {
-
+    this.AuthServiceService.logout();
   }
   Loguearse() {
-    
+
 
     var BoolVacio1 = false;
     var BoolVacio2 = false;
@@ -74,7 +75,7 @@ export class LoginComponent implements OnInit {
 
       let ListaContraseña = document.getElementsByName("TxtContrasena");
       ListaContraseña[0].style.borderBottomColor = "red";
-      
+
       BoolVacio2 = true;
 
     } else {
@@ -103,14 +104,25 @@ export class LoginComponent implements OnInit {
                 } else if (this.ObtEmpleadoObtenido.FK_IdEstadoEmpleado == 2) {
                   alert("Empleado Inactivo Por favor Contactar con el administrador");
                 } else {
-                  if(this.ObtEmpleadoObtenido.FK_IdPermisos == 1){
-                    this.Router.navigateByUrl(`/Admin`);
-                  }else if (this.ObtEmpleadoObtenido.FK_IdPermisos == 2){
-                    this.Router.navigateByUrl(`/Tecnico`);
-                  }else if (this.ObtEmpleadoObtenido.FK_IdPermisos == 3){
-                    this.Router.navigateByUrl(`/Recepcion`);
+                  if (this.ObtEmpleadoObtenido.FK_IdPermisos == 1) {
+
+                    this.AuthServiceService.CrearToken(this.ObtEmpleadoObtenido).subscribe((res: any) => {
+                      localStorage.setItem('token', res.token);
+                      this.Router.navigateByUrl(`/Admin`);
+                    })
+                  } else if (this.ObtEmpleadoObtenido.FK_IdPermisos == 2) {
+                    this.AuthServiceService.CrearToken(this.ObtEmpleadoObtenido).subscribe((res: any) => {
+                      localStorage.setItem('token', res.token);
+                      this.Router.navigateByUrl(`/Tecnico`);
+                    })
+
+                  } else if (this.ObtEmpleadoObtenido.FK_IdPermisos == 3) {
+                    this.AuthServiceService.CrearToken(this.ObtEmpleadoObtenido).subscribe((res: any) => {
+                      localStorage.setItem('token', res.token);
+                      this.Router.navigateByUrl(`/Recepcion`);
+                    })
                   }
-                  
+
                 }
               } else {
                 this.IntIntentosLogin++;

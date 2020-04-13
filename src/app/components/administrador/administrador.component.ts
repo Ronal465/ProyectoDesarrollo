@@ -5,7 +5,7 @@ import { EmpleadoService } from '../../services/empleado.service';
 import { PermisosEmpleadoServices } from "../../services/permisos-empleado.service";
 import { Router } from "@angular/router";
 import { ThrowStmt } from '@angular/compiler';
-
+import {  AuthServiceService} from "../../services/auth-service.service";
 
 /* Autor:
    Ronaldo Carlos Rodriguez Perez
@@ -59,13 +59,41 @@ export class AdministradorComponent implements OnInit {
 
   OpcionAdministrador: string = "Inicio";
 
+  TokenValidar:boolean= false;
+
   constructor(private EstadoEmpleadoService: EstadoEmpleadoService, private EmpleadoService: EmpleadoService,
     private PermisosEmpleadoServices: PermisosEmpleadoServices,
-    private Router: Router) { }
+    private Router: Router , private AuthServiceService: AuthServiceService) { }
 
 
 
   ngOnInit() {
+
+    this.AuthServiceService.ValidarLogin().subscribe(
+      res=>{
+        this.AuthServiceService.ValidarLogin().subscribe(
+          res=>{
+            if(res.Validar == true){
+    
+              if(res.token.FK_IdPermisos == 2 ){
+                this.TokenValidar = false;
+               this.Router.navigateByUrl(`/Tecnico`);
+              }else if(res.token.FK_IdPermisos == 3){
+                this.TokenValidar = false;
+                this.Router.navigateByUrl(`/Recepcion`);
+              } else{
+                this.TokenValidar = true;
+              }
+    
+              
+            }else{
+              this.TokenValidar = false;
+              this.Router.navigateByUrl(`/login`);
+            }
+          }
+        )
+      }
+    )
 
   }
 

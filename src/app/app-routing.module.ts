@@ -26,6 +26,18 @@ const routes: Routes = [
   {
     path: 'Tecnico',
     component: TecnicoComponent
+  },
+  {
+    path: 'not-found',
+    component: LoginComponent
+  },
+  {
+    path: 'courses',
+    component: LoginComponent
+  },
+  {
+    path: '**',
+    component: LoginComponent
   }
 
   

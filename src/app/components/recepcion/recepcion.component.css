@@ -1,0 +1,418 @@
+.cuadricula {
+  display: -ms-grid;
+  display: grid;
+  height: 90vh;
+  width: 80vw;
+  -ms-grid-columns: 40% 60%;
+      grid-template-columns: 40% 60%;
+  -ms-grid-rows: 100%;
+      grid-template-rows: 100%;
+  background: #ffffff;
+  border: 1px solid #900C3F;
+}
+
+.cuadricula2 {
+  display: -ms-grid;
+  display: grid;
+  height: 90vh;
+  width: 80vw;
+  -ms-grid-columns: 30% 70%;
+      grid-template-columns: 30% 70%;
+  -ms-grid-rows: 100%;
+      grid-template-rows: 100%;
+  background: #ffffff;
+  border: 1px solid #900C3F;
+}
+
+.Cuadricula3 {
+  display: -ms-grid;
+  display: grid;
+  heigh: 100%;
+  width: 100%;
+  -ms-grid-columns: 50% 50%;
+      grid-template-columns: 50% 50%;
+  -ms-grid-rows: 100%;
+      grid-template-rows: 100%;
+  background: #ffffff;
+}
+
+.cuadricula4 {
+  display: -ms-grid;
+  display: grid;
+  height: 90vh;
+  width: 80vw;
+  -ms-grid-columns: 20% 80%;
+      grid-template-columns: 20% 80%;
+  -ms-grid-rows: 100%;
+      grid-template-rows: 100%;
+  background: #ffffff;
+  border: 1px solid #900C3F;
+}
+
+.Cuadricula5 {
+  display: -ms-grid;
+  display: grid;
+  heigh: 40hv;
+  width: 100%;
+  -ms-grid-columns: 50% 50%;
+      grid-template-columns: 50% 50%;
+  -ms-grid-rows: 100%;
+      grid-template-rows: 100%;
+  background: #ffffff;
+}
+
+.ImagenFondo {
+  background: url(https://i.pinimg.com/originals/a7/8d/ef/a78def1238d325e3bbd1f5aa9e38fed7.jpg) no-repeat center center;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.botones #Boton {
+  color: #ffffff;
+  background: #900C3F;
+  border-radius: 122px 122px 122px 122px;
+  -moz-border-radius: 122px 122px 122px 122px;
+  -webkit-border-radius: 122px 122px 122px 122px;
+  border: 0px solid #000000;
+  width: 40%;
+  height: 6vh;
+  margin-left: 18%;
+  margin-top: 28vh;
+}
+
+#BotonSalida {
+  color: #ffffff;
+  background: #900C3F;
+  border: 0px solid #000000;
+  width: 10%;
+  margin-left: 2%;
+  height: 6vh;
+  margin-top: 1.7vh;
+  background: url(https://cdn.pixabay.com/photo/2014/03/25/16/59/left-297787_960_720.png) no-repeat center center;
+  background-size: cover;
+}
+
+.CamposDeTexto input {
+  border: 0px;
+  border-bottom: black 2px solid;
+  outline: none !important;
+  outline-width: 0 !important;
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  width: 35%;
+  height: 6vh;
+  margin-left: 10%;
+}
+
+.CamposDeTextoEquipo input {
+  border: 0px;
+  border-bottom: black 2px solid;
+  outline: none !important;
+  outline-width: 0 !important;
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  width: 70%;
+  margin-left: 15%;
+  height: 6vh;
+}
+
+.TextArea textarea {
+  border: 3px black solid;
+  outline: none !important;
+  outline-width: 0 !important;
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  width: 35%;
+  height: 18vh;
+  margin-left: 10%;
+  overflow: scroll;
+  resize: none;
+}
+
+.selects input {
+  border: 0px;
+  border-bottom: black 2px solid;
+  outline: none !important;
+  outline-width: 0 !important;
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  width: 35%;
+  height: 6vh;
+  margin-left: 10%;
+}
+
+.LabelUsuario label {
+  width: 35%;
+  margin-left: 10%;
+  height: 4vh;
+  margin-top: 1.7vh;
+}
+
+.LabelEquipo label {
+  width: 70%;
+  margin-left: 15%;
+  height: 4vh;
+  margin-top: 1.7vh;
+}
+
+.LabelMarca label {
+  width: 35%;
+  margin-left: 10%;
+  height: 4vh;
+  margin-top: 1.7vh;
+}
+
+.TextAreaEquipo textarea {
+  width: 80%;
+  margin-left: 10%;
+  height: 25vh;
+  margin-top: 1.7vh;
+  border: 3px black solid;
+}
+
+.selects select {
+  border: 0px;
+  border-bottom: black 2px solid;
+  outline: none !important;
+  outline-width: 0 !important;
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  width: 35%;
+  margin-left: 10%;
+  height: 6vh;
+}
+
+.ListaModelos {
+  border: 3px solid black;
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 5vh;
+  height: 40vh;
+  overflow: scroll;
+}
+
+.ListaModelos th, tr {
+  width: 20%;
+  text-align: center;
+}
+
+.Busqueda {
+  margin-left: 10%;
+  margin-top: 5vh;
+}
+
+.OpcionesAdministrador {
+  margin-left: 5%;
+  width: 90%;
+  border: 3px solid black;
+  height: 15.6vh;
+  margin-top: 2vh;
+  background: #900C3F;
+}
+
+.OpcionesAdministrador img {
+  width: 20%;
+  height: 13vh;
+  margin-top: 1vh;
+}
+
+.BotonDerecho button {
+  color: #ffffff;
+  background: #900C3F;
+  border-radius: 122px 122px 122px 122px;
+  -moz-border-radius: 122px 122px 122px 122px;
+  -webkit-border-radius: 122px 122px 122px 122px;
+  border: 0px solid #000000;
+  width: 30%;
+  height: 30px;
+  margin-left: 60%;
+}
+
+.CheckBox input {
+  background: #000000;
+  border: 1px black solid;
+  height: 20px;
+  width: 20px;
+  margin-left: 10%;
+  margin-top: 16vh;
+}
+
+.CamposDeTextoEquipo button {
+  color: #ffffff;
+  background: #900C3F;
+  border: 0px solid #000000;
+  width: 5vh;
+  margin-left: 2%;
+  height: 5vh;
+  margin-top: 1.7vh;
+  background: url(https://image.flaticon.com/icons/svg/2089/2089631.svg) no-repeat center center;
+  background-size: cover;
+}
+
+.botones button {
+  color: #ffffff;
+  background: #900C3F;
+  border-radius: 122px 122px 122px 122px;
+  -moz-border-radius: 122px 122px 122px 122px;
+  -webkit-border-radius: 122px 122px 122px 122px;
+  border: 0px solid #000000;
+  width: 40%;
+  height: 6vh;
+  margin-left: 18%;
+  margin-top: 2vh;
+}
+
+.CamposDeTextoMarcaModelo button {
+  color: #ffffff;
+  background: #900C3F;
+  border-radius: 122px 122px 122px 122px;
+  -moz-border-radius: 122px 122px 122px 122px;
+  -webkit-border-radius: 122px 122px 122px 122px;
+  border: 0px solid #000000;
+  width: 20%;
+  height: 6vh;
+  margin-left: 5%;
+  margin-top: 2vh;
+}
+
+.CamposDeTextoMarcaModelo input {
+  border: 0px;
+  border-bottom: black 2px solid;
+  outline: none !important;
+  outline-width: 0 !important;
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  width: 35%;
+  height: 6vh;
+  margin-left: 10%;
+}
+
+.ListaClientes {
+  border: 3px solid black;
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 5vh;
+  height: 55vh;
+  overflow: scroll;
+}
+
+.ListaClientes th, tr {
+  width: 20%;
+  text-align: center;
+}
+
+.CamposDeTextoBusqueda input {
+  border: 0px;
+  border-bottom: black 2px solid;
+  outline: none !important;
+  outline-width: 0 !important;
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  width: 50%;
+  height: 6vh;
+}
+
+.Busqueda {
+  margin-left: 10%;
+  margin-top: 5vh;
+}
+
+.CamposDeTextoSolicitud input {
+  border: 0px;
+  border-bottom: black 2px solid;
+  outline: none !important;
+  outline-width: 0 !important;
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  margin-left: 0;
+  width: 50%;
+  height: 6vh;
+}
+
+.CamposDeTextoSolicitud img {
+  width: 20%;
+  height: 10vh;
+  margin-top: 1vh;
+  margin-left: 5%;
+}
+
+.CamposDeTextoSolicitud button {
+  color: #ffffff;
+  background: #900C3F;
+  border: 0px solid #000000;
+  width: 4vh;
+  margin-left: 2%;
+  height: 4vh;
+  background: url(https://image.flaticon.com/icons/svg/2089/2089631.svg) no-repeat center center;
+  background-size: cover;
+}
+
+.LabelSolicitud label {
+  width: 35%;
+  margin-left: 10%;
+  height: 4vh;
+  margin-top: 1.7vh;
+}
+
+.LabelSolicitudDerecho label {
+  width: 20%;
+  margin-left: 10%;
+  height: 4vh;
+  margin-top: 1.5vh;
+}
+
+.LabelSolicitudDerecho input {
+  width: 40%;
+  height: 4vh;
+  margin-top: 1.5vh;
+  border: 0px;
+  border-bottom: black 2px solid;
+  outline: none !important;
+  outline-width: 0 !important;
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+.ListaEquipos {
+  border: 2px solid black;
+  width: 90%;
+  height: 45vh;
+  margin-left: 5%;
+  margin-top: 5vh;
+  overflow: scroll;
+}
+
+.CampolListaSolicitud {
+  border: black 2px solid;
+  outline: none !important;
+  outline-width: 0 !important;
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  height: 6vh;
+  margin-top: 2vh;
+  margin-left: 1vh;
+}
+
+.BotonLista {
+  margin-left: 1vw;
+}
+
+.CheckBox {
+  background: #000000;
+  border: 1px black solid;
+  height: 20px;
+  width: 20px;
+  margin-left: 0.5vw;
+}
+/*# sourceMappingURL=recepcion.component.css.map */
