@@ -68,11 +68,14 @@
             <div class="Opciones">
                 <div class="OpcionesAdministrador">
                     <img src="https://image.flaticon.com/icons/svg/702/702010.svg">
-                    <button (click)='OpcionAdministrador = "CrearCliente";  LimpiarObtCliente(); RellenarListas(1);'>Crear Cliente</button>
+                    <button
+                        (click)='OpcionAdministrador = "CrearCliente";  LimpiarObtCliente(); RellenarListas(1);'>Crear
+                        Cliente</button>
                 </div>
                 <div class="OpcionesAdministrador">
                     <img src="https://image.flaticon.com/icons/svg/788/788918.svg">
-                    <button (click)='OpcionAdministrador = "ActualizarCliente";RellenarListas(2);'> Actualizar Cliente</button>
+                    <button (click)='OpcionAdministrador = "ActualizarCliente";RellenarListas(2);'> Actualizar
+                        Cliente</button>
                 </div>
                 <div class="OpcionesAdministrador">
                     <img src="https://image.flaticon.com/icons/svg/329/329825.svg">
@@ -80,7 +83,7 @@
                 </div>
                 <div class="OpcionesAdministrador">
                     <img src="https://image.flaticon.com/icons/svg/1410/1410009.svg">
-                    <button>Generar Solicitud De Servicio</button>
+                    <button (click)='OpcionAdministrador = "CrearSolicitud";'> Generar Solicitud De Servicio</button>
                 </div>
 
             </div>
@@ -221,7 +224,7 @@
                     <button (click)="CrearModelo()">Añadir</button>
                     <button (click)="EliminarUltimoModeloCreado()"> Quitar Ultimo</button>
                 </div>
-                <div class="ListaModelos">
+                <div class="ListaModelos" name="ListaModelos">
                     <tr>
                         <th>Numero</th>
                         <th>Modelo</th>
@@ -244,10 +247,10 @@
             </div>
             <div class="Busqueda">
                 <div class="LabelClienteBusqueda">
-                    <label for="TxtBuscarCliente" name="LabIdentificacion" >Ingrese Nombres o Apellidos</label>
+                    <label for="TxtBuscarCliente" name="LabIdentificacion">Ingrese Nombres o Apellidos</label>
                 </div>
                 <div class="CamposDeTextoBusqueda">
-                    <input type="text" name="TxtBuscarCliente"  [(ngModel)]="BuscadorCliente" />
+                    <input type="text" name="TxtBuscarCliente" [(ngModel)]="BuscadorCliente" />
                 </div>
                 <div class="ListaClientes">
                     <tr>
@@ -257,19 +260,21 @@
                         <th>Segundo Identificacion</th>
                         <th>Accion</th>
                     </tr>
-                    <tr *ngFor="let Cliente of ListaClientes | buscadorCliente:BuscadorCliente" >
+                    <tr *ngFor="let Cliente of ListaClientes | buscadorCliente:BuscadorCliente">
 
-                            
-                            <td>{{Cliente.primer_Nombre}}</td>
-                            <td>{{Cliente.segundo_Nombre}} </td>
-                            <td>{{Cliente.primer_Apellido}} </td>
-                            <td>{{Cliente.segundo_Apellido}} </td>
-                            <button (click)="OpcionAdministrador = 'EditarCliente'; ActualizarCliente(Cliente.Numero_Identificacion)" > Editar</button>
+
+                        <td>{{Cliente.primer_Nombre}}</td>
+                        <td>{{Cliente.segundo_Nombre}} </td>
+                        <td>{{Cliente.primer_Apellido}} </td>
+                        <td>{{Cliente.segundo_Apellido}} </td>
+                        <button
+                            (click)="OpcionAdministrador = 'EditarCliente'; ActualizarCliente(Cliente.Numero_Identificacion)">
+                            Editar</button>
                     </tr>
-                </div>   
+                </div>
                 <div class="botones">
                     <button id="BotonSalida" (click)='OpcionAdministrador = "Inicio"'></button>
-                </div>      
+                </div>
             </div>
 
         </div>
@@ -330,4 +335,80 @@
             </div>
         </div>
     </ng-container>
+    <ng-container class="CrearUsuario" *ngIf='OpcionAdministrador == "CrearSolicitud"'>
+
+        <div class="cuadricula4">
+            <div class="ImagenFondo">
+            </div>
+            <div class="FormularioSolicitud">
+
+                <div class="Cuadricula5">
+                    <div class="Izqueirdo">
+                        <div class="LabelSolicitud">
+                            <label>Solicitud Servidio:{{SolicitudCreada.IdSolicitud}} </label>
+                        </div>
+                        <div class="LabelSolicitud">
+                            <label>Id Empleado:{{SolicitudCreada.Fk_Id_Empleado}} </label>
+                        </div>
+                        <div class="CamposDeTextoSolicitud">
+                            <img src="https://image.flaticon.com/icons/svg/702/702010.svg">
+                            <input type="text" name="TxtBuscarCliente" list="CMBBuscarCliente"
+                                [(ngModel)]="BuscarCliente" (change)="ActualizarEquipos($event)" />
+                            <button (click)='OpcionAdministrador = "CrearCliente"; RellenarListas(1);'></button>
+                        </div>
+                        <datalist id="CMBBuscarCliente">
+
+                            <option [value]="Cliente.Id_cliente"
+                                *ngFor="let Cliente of ListaClientes | buscadorCliente:BuscarCliente ">
+
+                                <label>{{Cliente.primer_Nombre}} {{Cliente.segundo_Nombre}}
+                                    {{Cliente.primer_Apellido}} {{Cliente.segundo_Apellido}}
+                                </label>
+                            </option>
+
+                        </datalist>
+                    </div>
+                    <div class="Derecho">
+                        <div class="LabelSolicitudDerecho">
+                            <label for="TxtFecha" name="LabFecha">Fecha:</label>
+                            <input type="text" name="TxtFecha">
+                        </div>
+                        <div class="LabelSolicitudDerecho">
+                            <label for="TxtEstado" name="LabEstado">Estado:</label>
+                            <input type="text" name="TxtEstado">
+                        </div>
+                        <div class="LabelSolicitudDerecho">
+                            <label for="TxtTrm" name="LabTrm">Trm:</label>
+                            <input type="text" name="TxtTrm">
+                        </div>
+                        <div class="LabelSolicitudDerecho">
+                            <label for="TxtValor" name="LabValor">Valor:</label>
+                            <input type="text" name="TxtValor">
+                        </div>
+                    </div>
+                </div>
+                <div class="ListaEquipos">
+
+                    <tr *ngFor="let Equipo of ListaEquipoCliente ">
+                        <input class="CampolListaSolicitud" type="text" placeholder="Servicio">
+                        <input class="CampolListaSolicitud" type="text" placeholder="Valor Unitario">
+                        <button class="BotonLista" >Equipo</button>
+                        
+                        <input class="CheckBox" type="checkbox">
+                        <label>TA</label>
+                        <input class="CheckBox" type="checkbox">
+                        <label>PC</label>
+                        <input class="CheckBox" type="checkbox">
+                        <label>PV</label>
+                        <input class="CheckBox" type="checkbox">
+                        <label>ANT</label>
+                    </tr>
+                </div>
+
+
+            </div>
+        </div>
+    </ng-container>
+
+
 </ng-container>

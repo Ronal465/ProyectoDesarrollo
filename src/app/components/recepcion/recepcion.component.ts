@@ -8,7 +8,7 @@ import { TipoIdentificacionService } from "../../services/tipo-identificacion.se
 import { MarcamodeloService } from "../../services/marcamodelo.service";
 import { MarcaService } from "../../services/marca.service";
 import { EquipoService } from "../../services/equipo.service";
-
+import { InterfaceSolicitud } from "../../models/InterfaceSolicitud";
 
 /* Autor:
    Ronaldo Carlos Rodriguez Perez
@@ -83,15 +83,31 @@ export class RecepcionComponent implements OnInit {
     IdMarca: null,
     Descripcion: ""
   }
-  IntNumeroModelosCreados = 0;
-  BuscarCliente = "";
-  BuscarMarca = "";
-  BuscarModelo = "";
-  BuscadorCliente = "";
-  CBTA;
-  CBPC;
-  CBPV;
-  CBANT;
+
+  private SolicitudCreada : InterfaceSolicitud={
+    IdSolicitud          :0,
+    FechaIngreso         :null,
+    Fk_Id_Empleado       :0,
+    FK_Id_clientes       :0,
+    FK_IDTrm             :0,
+    FK_IdEstadoSolicitud :0
+  }
+
+  private ListaEquipoCliente : InterfaceEquipo[]=[
+
+    
+  ]
+
+  
+  private IntNumeroModelosCreados = 0;
+  private BuscarCliente = "";
+  private BuscarMarca = "";
+  private BuscarModelo = "";
+  private BuscadorCliente = "";
+  private CBTA;
+  private CBPC;
+  private CBPV;
+  private CBANT;
 
 
   constructor(private TipoIdentificacionService: TipoIdentificacionService,
@@ -105,7 +121,6 @@ export class RecepcionComponent implements OnInit {
     this.ClienteService.getClientes().subscribe(
       res => {
         this.ListaClientes = res;
-        console.log(this.ListaClientes);
       }
     )
 
@@ -114,6 +129,7 @@ export class RecepcionComponent implements OnInit {
         this.ListaMarcas = res;
       }
     )
+    
 
 
   }
@@ -220,6 +236,8 @@ export class RecepcionComponent implements OnInit {
   CrearModelo() {
 
     if (this.ModeloCreado.Descripcion != "") {
+      var lista =  document.getElementsByName("ListaModelos");
+      lista[0].style.borderColor = "black";
       document.getElementsByName("TxtDescripcionModelo")[0].style.borderColor = "black";
       this.IntNumeroModelosCreados++;
       this.ModeloCreado.IdModelo = this.IntNumeroModelosCreados;
@@ -252,14 +270,20 @@ export class RecepcionComponent implements OnInit {
               res => {
                 this.MarcamodeloService.CreateMarcaModelo(element, this.MarcaCreada).subscribe(
                   res => {
+                    this.MarcaService.getListMarcas().subscribe(
+                      res => {
+                        this.ListaMarcas = res;
+                      }
+                    )
+                    this.OpcionAdministrador= "CrearRadio";
                   }
                 )
               }
             )
             this.CreacionModelos = null;
           }
-
           )
+          alert("Marcas Modelos Creados");
         }
       )
 
@@ -268,6 +292,9 @@ export class RecepcionComponent implements OnInit {
 
 
 
+    }else{
+    var lista =  document.getElementsByName("ListaModelos");
+     lista[0].style.borderColor = "red";
     }
 
   }
@@ -444,7 +471,7 @@ export class RecepcionComponent implements OnInit {
 
       }
     }
-    if (this.BuscarCliente == '') {
+    if (this.BuscarModelo == '') {
       let username = document.getElementsByName("TxtBuscarModelo");
       username[0].style.borderBottomColor = "red";
       Boolvacio3 = true;
@@ -565,7 +592,6 @@ export class RecepcionComponent implements OnInit {
       direccion: ''
     }
   }
-
   EditarCliente(){
 
     var Boolvacio1 = false;
@@ -684,6 +710,22 @@ export class RecepcionComponent implements OnInit {
     
     
   }
+  ActualizarEquipos(e) {
 
+    if (!(isNaN(e.target.value) || e.target.value == "")) {
 
+      this.EquipoService.getEquipo(e.target.value).subscribe(
+        res => {
+          this.ListaEquipoCliente = res;
+        },
+        err => {
+          this.ListaEquipoCliente = [];
+        }
+      )
+      
+    } else {
+      this.ListaEquipoCliente = [];
+    }
+
+  }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { InterfaceEquipo } from "../models/InterfaceEquipo";
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 
 /* Autor:
    Ronaldo Carlos Rodriguez Perez
@@ -17,21 +17,25 @@ export class EquipoService {
   Apli_URL = 'http://localhost:3000/api';
 
 
-  constructor(private http:HttpClient) {
+  constructor(private http: HttpClient) {
 
-   }
+  }
 
-   CrearEquipo(ObtInterfaceEquipo:InterfaceEquipo):Observable<any> {
+  CrearEquipo(ObtInterfaceEquipo: InterfaceEquipo): Observable<any> {
 
-    return this.http.put(`${this.Apli_URL}/Equipo`,ObtInterfaceEquipo);
+    return this.http.put(`${this.Apli_URL}/Equipo`, ObtInterfaceEquipo);
 
-   }
+  }
 
-   getEquipos() : Observable<any>{
-     
+  getEquipos(): Observable<any> {
+
     return this.http.get(`${this.Apli_URL}/Equipo/list`);
-    
-  } 
+
+  }
+
+  getEquipo(StrIdCliente: string): Observable<any> {
+    return this.http.get(`${this.Apli_URL}/Equipo/${StrIdCliente}`);
+  }
 
 
 }

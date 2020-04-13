@@ -3,13 +3,13 @@
      Ultima Edicion Por:
      Ronaldo Carlos Rodriguez Perez
  -->
- <ng-container class="Inicio" *ngIf='OpcionTecnico == "Inicio"'>
+<ng-container class="Inicio" *ngIf='OpcionTecnico == "Inicio"'>
     <div class="cuadricula">
         <div class="ImagenFondo">
         </div>
         <div class="Opciones">
             <div class="OpcionesTecnico">
-                <img src="https://image.flaticon.com/icons/svg/702/702010.svg">
+                <img src="https://image.flaticon.com/icons/svg/2328/2328739.svg">
                 <button (click)='OpcionTecnico = "CrearRepuestos"'>Crear Repuesto</button>
             </div>
             <div class="OpcionesTecnico">
@@ -26,7 +26,40 @@
     <div class="cuadricula">
         <div class="ImagenFondo">
         </div>
-        <div class="FormularioRepuestos">        
+        <div class="FormularioRepuestos">
+            <div class="LabelRepuesto">
+                <label for="TxtReferencia" name="LabReferencia">Referencia</label>
+                <input class="CampoTexto" type="text" name="TxtReferencia" [(ngModel)]="RepuestoCreado.Referencia" />
+                <button id="BotonRecepcion" (click)="CrearRepuesto()"  >Añadir Repuesto</button>
+                <button id="BotonRecepcion" (click)="EliminarUltimRepuestoCreado()">Elimar Ultimo</button>
+            </div>
+
+            <div class="LabelRepuesto">
+                <label for="TxtDescripcion" name="LabDescripcion">Descripcion</label>
+                <input class="CampoTexto" type="text" name="TxtDescripcion" [(ngModel)]="RepuestoCreado.Descripcion"/>
+            </div>
+            <div class="LabelRepuesto">
+                <label for="TxtValor" name="LabValor">Valor</label>
+                <input class="CampoTexto" type="text" name="TxtValor" [(ngModel)]="RepuestoCreado.Valor"/>
+            </div>
+
+            <div class="ListaRepuestos" name="ListaRepuestos" >
+                <tr>
+                    <th>Referencia</th>
+                    <th>Descripcion</th>
+                    <th>Valor</th>
+                </tr>
+                <tr *ngFor="let Repuesto of ListRepuestosCreados">
+                    <th>{{Repuesto.Referencia}}</th>
+                    <th>{{Repuesto.Descripcion}}</th>
+                    <th>{{Repuesto.Valor}}</th>
+                </tr>
+            </div>
+            <div class="botones">
+                <button id="BotonSalida" (click)='OpcionTecnico = "Inicio";'></button>
+                <button (click)="GuardarListaRepuestos()">Guardar</button>
+            </div>
+
         </div>
     </div>
 
