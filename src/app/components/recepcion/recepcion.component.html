@@ -50,8 +50,6 @@
                         [(ngModel)]="ObtCliente.FK_Tipo_Identificacion">
                     </select>
                     <input type="text" name="TxtIdentificacion" [(ngModel)]="ObtCliente.Numero_Identificacion" />
-
-
                 </div>
 
                 <div class="botones">
@@ -83,7 +81,7 @@
                 </div>
                 <div class="OpcionesAdministrador">
                     <img src="https://image.flaticon.com/icons/svg/1410/1410009.svg">
-                    <button (click)='OpcionAdministrador = "CrearSolicitud";'> Generar Solicitud De Servicio</button>
+                    <button (click)='OpcionAdministrador = "CrearSolicitud"; RellenarListas(3);RellenarListas(4);'> Generar Solicitud De Servicio</button>
                 </div>
 
             </div>
@@ -110,7 +108,6 @@
 
                             <option [value]="Cliente.Id_cliente"
                                 *ngFor="let Cliente of ListaClientes | buscadorCliente:BuscarCliente ">
-
                                 <label>{{Cliente.primer_Nombre}} {{Cliente.segundo_Nombre}}
                                     {{Cliente.primer_Apellido}} {{Cliente.segundo_Apellido}}
                                 </label>
@@ -156,16 +153,13 @@
                         <div class="CheckBox">
                             <input type="checkbox" name="CBTA" id="CBTA" value="1" (click)="SeleccionarCheckBox(1)"
                                 [(ngModel)]="CBTA">
-                            <label for="CBTA" name="LabTA">TA</label>
+                            <label for="CBTA" name="LabTA">Fuente De Alimentacion</label>
                             <input type="checkbox" name="CBPC" id="CBPC" value="2" (click)="SeleccionarCheckBox(2)"
                                 [(ngModel)]="CBPC">
-                            <label for="CBPC" name="LabPC">PC</label>
+                            <label for="CBPC" name="LabPC">Repetidor</label>
                             <input type="checkbox" name="CBPV" id="CBPC" value="3" (click)="SeleccionarCheckBox(3)"
                                 [(ngModel)]="CBPV">
-                            <label for="CBPC" name="LabPV"> PV</label>
-                            <input type="checkbox" name="CBANT" id="CBANT" value="4" (click)="SeleccionarCheckBox(4)"
-                                [(ngModel)]="CBANT">
-                            <label for="CBANT" name="LabANT">ANT</label>
+                            <label for="CBPC" name="LabPV"> Otros</label>
                         </div>
 
 
@@ -345,10 +339,10 @@
                 <div class="Cuadricula5">
                     <div class="Izqueirdo">
                         <div class="LabelSolicitud">
-                            <label>Solicitud Servidio:{{SolicitudCreada.IdSolicitud}} </label>
+                            <label>Solicitud Servicio: {{SolicitudCreada.IdSolicitud}} </label>
                         </div>
                         <div class="LabelSolicitud">
-                            <label>Id Empleado:{{SolicitudCreada.Fk_Id_Empleado}} </label>
+                            <label>Id Empleado: {{EmpleadoAplicacion.Id_Empleado}} </label>
                         </div>
                         <div class="CamposDeTextoSolicitud">
                             <img src="https://image.flaticon.com/icons/svg/702/702010.svg">
@@ -357,52 +351,70 @@
                             <button (click)='OpcionAdministrador = "CrearCliente"; RellenarListas(1);'></button>
                         </div>
                         <datalist id="CMBBuscarCliente">
-
                             <option [value]="Cliente.Id_cliente"
                                 *ngFor="let Cliente of ListaClientes | buscadorCliente:BuscarCliente ">
-
                                 <label>{{Cliente.primer_Nombre}} {{Cliente.segundo_Nombre}}
                                     {{Cliente.primer_Apellido}} {{Cliente.segundo_Apellido}}
                                 </label>
                             </option>
-
                         </datalist>
                     </div>
                     <div class="Derecho">
                         <div class="LabelSolicitudDerecho">
                             <label for="TxtFecha" name="LabFecha">Fecha:</label>
-                            <input type="text" name="TxtFecha">
+                            <input type="text" disabled="true"  name="TxtFecha" value="{{FechaSolicitud}}">
                         </div>
                         <div class="LabelSolicitudDerecho">
                             <label for="TxtEstado" name="LabEstado">Estado:</label>
-                            <input type="text" name="TxtEstado">
+
+                            <select name="Select" [(ngModel)]="SolicitudCreada.FK_IdEstadoSolicitud">
+                                <option [value]="EstadoSolicitud.IdEstadoSolicitud" *ngFor="let EstadoSolicitud of ListaEstadoSolicitud ">
+                                    {{EstadoSolicitud.Descripcion}}</option>
+                            </select>
+
                         </div>
                         <div class="LabelSolicitudDerecho">
                             <label for="TxtTrm" name="LabTrm">Trm:</label>
-                            <input type="text" name="TxtTrm">
+                            <input type="text" name="TxtTrm"  [(ngModel)]= "Trm">
                         </div>
                         <div class="LabelSolicitudDerecho">
                             <label for="TxtValor" name="LabValor">Valor:</label>
-                            <input type="text" name="TxtValor">
+                            <input type="text" disabled="true"  name="TxtValor">
                         </div>
                     </div>
                 </div>
                 <div class="ListaEquipos">
 
-                    <tr *ngFor="let Equipo of ListaEquipoCliente ">
-                        <input class="CampolListaSolicitud" type="text" placeholder="Servicio">
-                        <input class="CampolListaSolicitud" type="text" placeholder="Valor Unitario">
-                        <button class="BotonLista" >Equipo</button>
-                        
-                        <input class="CheckBox" type="checkbox">
+                    <tr *ngFor="let Equipo of ListaEquipoCliente let i = index;">
+                        <input class="CampolListaSolicitud" type="text" placeholder="Servicio"
+                            [(ngModel)]="ListaServicios[i].Descripcion"    
+                        >
+                        <input class="CampolListaSolicitud" type="text" placeholder="Valor Unitario"
+                        [(ngModel)]="ListaServicios[i].Valor" 
+                        >
+                        <button class="BotonLista">Equipo</button>
+
+                        <input class="CheckBox1" type="checkbox"
+                        [(ngModel)]="ListaComboOpciones[i].Opcion1"
+                        >
                         <label>TA</label>
-                        <input class="CheckBox" type="checkbox">
+                        <input class="CheckBox1" type="checkbox"
+                        [(ngModel)]="ListaComboOpciones[i].Opcion2"
+                        >
                         <label>PC</label>
-                        <input class="CheckBox" type="checkbox">
+                        <input class="CheckBox1" type="checkbox"
+                        [(ngModel)]="ListaComboOpciones[i].Opcion3"
+                        >
                         <label>PV</label>
-                        <input class="CheckBox" type="checkbox">
+                        <input class="CheckBox1" type="checkbox"
+                        [(ngModel)]="ListaComboOpciones[i].Opcion4"
+                        >
                         <label>ANT</label>
                     </tr>
+                </div>
+                <div class="botones">
+                    <button id="BotonSalida" (click)='OpcionAdministrador = "Inicio"'></button>
+                    <button (click)="CrearServicio()" >Guardar</button>
                 </div>
 
 

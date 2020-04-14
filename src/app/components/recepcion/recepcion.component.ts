@@ -11,6 +11,12 @@ import { EquipoService } from "../../services/equipo.service";
 import { InterfaceSolicitud } from "../../models/InterfaceSolicitud";
 import { AuthServiceService } from "../../services/auth-service.service";
 import { Router } from "@angular/router";
+import { InterfaceEmpleado } from "../../models/InterfaceEmpleado";
+import { InterfaceEstadoSolicitud } from "../../models/InterfaceEstadoSolicitud";
+import { SolicitudService } from "../../services/solicitud.service";
+import { InterfaceServicio } from "../../models/InterfaceServicio";
+import { InterfaceOpciones } from "../../models/InterfaceOpciones";
+import { element } from 'protractor';
 /* Autor:
    Ronaldo Carlos Rodriguez Perez
    Ultima Edicion Por:
@@ -37,7 +43,6 @@ export class RecepcionComponent implements OnInit {
     Telefono: '',
     direccion: ''
   }
-
   private ObtEquipo: InterfaceEquipo = {
     IdEquipo: null,
     Serie: "",
@@ -48,7 +53,6 @@ export class RecepcionComponent implements OnInit {
     Dano_Reportado: "",
     FK_IdModelo: 0
   }
-
   private ListaClientes: InterfaceCliente[] =
     [{
       Id_cliente: 0,
@@ -61,45 +65,46 @@ export class RecepcionComponent implements OnInit {
       Telefono: '',
       direccion: ''
     }];
-
   private ListaMarcas: InterfaceMarca[] = [
     {
       IdMarca: 0,
       Descripcion: ""
     }];
-
   private ListaModelos: InterfaceModelo[] = [
   ];
-
   private CreacionModelos: InterfaceModelo[] = [
   ];
-
   private ModeloCreado: InterfaceModelo =
     {
       IdModelo: 0,
       Descripcion: ""
     };
-
   private MarcaCreada: InterfaceMarca = {
     IdMarca: null,
     Descripcion: ""
   }
-
-  private SolicitudCreada : InterfaceSolicitud={
-    IdSolicitud          :0,
-    FechaIngreso         :null,
-    Fk_Id_Empleado       :0,
-    FK_Id_clientes       :0,
-    FK_IDTrm             :0,
-    FK_IdEstadoSolicitud :0
+  private SolicitudCreada: InterfaceSolicitud = {
+    IdSolicitud: 0,
+    FechaIngreso: new Date,
+    Fk_Id_Empleado: 0,
+    FK_Id_clientes: 0,
+    FK_IDTrm: 0,
+    FK_IdEstadoSolicitud: 0
   }
+  private ListaEquipoCliente: InterfaceEquipo[] = [
+  ]
+  private EmpleadoAplicacion: InterfaceEmpleado;
 
-  private ListaEquipoCliente : InterfaceEquipo[]=[
-
-    
+  private ListaEstadoSolicitud: InterfaceEstadoSolicitud[] = [
   ]
 
+  private ListaServicios: InterfaceServicio[] = [
+  ]
+
+  private ListaComboOpciones :InterfaceOpciones[] =[];
   
+
+
   private IntNumeroModelosCreados = 0;
   private BuscarCliente = "";
   private BuscarMarca = "";
@@ -108,32 +113,35 @@ export class RecepcionComponent implements OnInit {
   private CBTA;
   private CBPC;
   private CBPV;
-  private CBANT;
-
-  TokenValidar:boolean= false;
+  private FechaSolicitud = ""
+  private TokenValidar: boolean = false;
+  private Trm;
 
   constructor(private TipoIdentificacionService: TipoIdentificacionService,
     private MarcamodeloService: MarcamodeloService,
     private MarcaService: MarcaService,
     private ClienteService: ClienteService,
     private EquipoService: EquipoService,
-    private AuthServiceService :AuthServiceService,
-    private Router : Router) {}
+    private AuthServiceService: AuthServiceService,
+    private Router: Router,
+    private SolicitudService: SolicitudService) { }
 
   ngOnInit() {
 
 
     this.AuthServiceService.ValidarLogin().subscribe(
-      res=>{
-        if(res.Validar == true){
+      res => {
+        if (res.Validar == true) {
 
-          if(res.token.FK_IdPermisos == 2){
+          if (res.token.FK_IdPermisos == 2) {
             this.TokenValidar = false;
-          this.Router.navigateByUrl(`/Tecnico`);
-          }else{
+            this.Router.navigateByUrl(`/Tecnico`);
+            this.EmpleadoAplicacion = res.token;
+          } else {
             this.TokenValidar = true;
+            this.EmpleadoAplicacion = res.token;
           }
-        }else{
+        } else {
           this.TokenValidar = false;
           this.Router.navigateByUrl(`/login`);
         }
@@ -150,7 +158,7 @@ export class RecepcionComponent implements OnInit {
         this.ListaMarcas = res;
       }
     )
-    
+
 
 
   }
@@ -186,6 +194,23 @@ export class RecepcionComponent implements OnInit {
           console.log(this.ListaClientes);
         }
       )
+    } else if (IntOpcion == 3) {
+      var Fecha = new Date();
+      this.SolicitudCreada.FechaIngreso = Fecha;
+      this.FechaSolicitud = Fecha.getDate() + "/" + (Fecha.getMonth() + 1) + "/" + Fecha.getFullYear();
+      this.SolicitudService.MaximoSolicitud().subscribe(
+        res => {
+          this.SolicitudCreada.IdSolicitud = res.IdSolicitud;
+        }
+      )
+
+    } else if (IntOpcion == 4) {
+      this.SolicitudService.listEstado().subscribe(
+        res => {
+          this.ListaEstadoSolicitud = res;
+          this.SolicitudCreada.FK_IdEstadoSolicitud = 1;
+        }
+      )
     }
 
   }
@@ -217,7 +242,6 @@ export class RecepcionComponent implements OnInit {
     if (Numero == 1) {
       this.CBPV = false;
       this.CBPC = false;
-      this.CBANT = false;
       if (!this.CBTA) {
         this.ObtEquipo.FK_IdTipoEquipo = 1;
       } else {
@@ -227,7 +251,6 @@ export class RecepcionComponent implements OnInit {
     } else if (Numero == 2) {
       this.CBTA = false;
       this.CBPV = false;
-      this.CBANT = false;
       if (!this.CBPC) {
         this.ObtEquipo.FK_IdTipoEquipo = 2;
       } else {
@@ -236,28 +259,19 @@ export class RecepcionComponent implements OnInit {
     } else if (Numero == 3) {
       this.CBTA = false;
       this.CBPC = false;
-      this.CBANT = false;
       if (!this.CBPV) {
         this.ObtEquipo.FK_IdTipoEquipo = 3;
       } else {
         this.ObtEquipo.FK_IdTipoEquipo = 0;
       }
-    } else if (Numero == 4) {
-      this.CBTA = false;
-      this.CBPV = false;
-      this.CBPC = false;
-      if (!this.CBANT) {
-        this.ObtEquipo.FK_IdTipoEquipo = 4;
-      } else {
-        this.ObtEquipo.FK_IdTipoEquipo = 0;
-      }
+
     }
 
   }
   CrearModelo() {
 
     if (this.ModeloCreado.Descripcion != "") {
-      var lista =  document.getElementsByName("ListaModelos");
+      var lista = document.getElementsByName("ListaModelos");
       lista[0].style.borderColor = "black";
       document.getElementsByName("TxtDescripcionModelo")[0].style.borderColor = "black";
       this.IntNumeroModelosCreados++;
@@ -296,12 +310,12 @@ export class RecepcionComponent implements OnInit {
                         this.ListaMarcas = res;
                       }
                     )
-                    this.OpcionAdministrador= "CrearRadio";
+                    this.OpcionAdministrador = "CrearRadio";
                   }
                 )
               }
             )
-            this.CreacionModelos = null;
+            this.CreacionModelos = [];
           }
           )
           alert("Marcas Modelos Creados");
@@ -313,9 +327,9 @@ export class RecepcionComponent implements OnInit {
 
 
 
-    }else{
-    var lista =  document.getElementsByName("ListaModelos");
-     lista[0].style.borderColor = "red";
+    } else {
+      var lista = document.getElementsByName("ListaModelos");
+      lista[0].style.borderColor = "red";
     }
 
   }
@@ -352,13 +366,13 @@ export class RecepcionComponent implements OnInit {
     }
 
     this.ClienteService.getClientes().subscribe(
-      res=>{
+      res => {
         this.ListaClientes = res;
       }
     )
-    this.ListaClientes.forEach(element =>{
-      
-      if(this.ObtCliente.Numero_Identificacion == element.Numero_Identificacion){
+    this.ListaClientes.forEach(element => {
+
+      if (this.ObtCliente.Numero_Identificacion == element.Numero_Identificacion) {
         ValidarIdentificacion = true;
       }
     })
@@ -386,7 +400,7 @@ export class RecepcionComponent implements OnInit {
       Boolvacio8 = false;
     }
 
-    if(this.ValidarCadenaString(this.ObtCliente.segundo_Nombre)){
+    if (this.ValidarCadenaString(this.ObtCliente.segundo_Nombre)) {
       let username = document.getElementsByName("TxtSegundoNombre");
       username[0].style.borderBottomColor = "red";
       Boolvacio4 = true;
@@ -395,8 +409,8 @@ export class RecepcionComponent implements OnInit {
       username[0].style.borderBottomColor = "black";
       Boolvacio4 = false;
     }
-    
-    if(this.ValidarCadenaString(this.ObtCliente.segundo_Apellido)){
+
+    if (this.ValidarCadenaString(this.ObtCliente.segundo_Apellido)) {
       let username = document.getElementsByName("TxtSegundoApellido");
       username[0].style.borderBottomColor = "red";
       Boolvacio5 = true;
@@ -406,7 +420,7 @@ export class RecepcionComponent implements OnInit {
       Boolvacio6 = false;
     }
 
-    if(this.ValidarNumero(this.ObtCliente.Telefono)){
+    if (this.ValidarNumero(this.ObtCliente.Telefono)) {
       let username = document.getElementsByName("TxtTelefono");
       username[0].style.borderBottomColor = "red";
       Boolvacio7 = true;
@@ -416,8 +430,8 @@ export class RecepcionComponent implements OnInit {
       Boolvacio7 = false;
     }
 
-    if (!Boolvacio1 && !Boolvacio2 && !Boolvacio3 &&!Boolvacio4 &&
-        !Boolvacio5 && !Boolvacio6 && !Boolvacio7 && !Boolvacio8) {
+    if (!Boolvacio1 && !Boolvacio2 && !Boolvacio3 && !Boolvacio4 &&
+      !Boolvacio5 && !Boolvacio6 && !Boolvacio7 && !Boolvacio8) {
 
       this.ClienteService.CrearCliente(this.ObtCliente).subscribe(
         res => {
@@ -534,8 +548,6 @@ export class RecepcionComponent implements OnInit {
       chexbox1[0].style.color = "red";
       let chexbox2 = document.getElementsByName("LabPV");
       chexbox2[0].style.color = "red";
-      let chexbox3 = document.getElementsByName("LabANT");
-      chexbox3[0].style.color = "red";
     } else {
       let chexbox = document.getElementsByName("LabTA");
       chexbox[0].style.color = "black";
@@ -543,11 +555,7 @@ export class RecepcionComponent implements OnInit {
       chexbox1[0].style.color = "black";
       let chexbox2 = document.getElementsByName("LabPV");
       chexbox2[0].style.color = "black";
-      let chexbox3 = document.getElementsByName("LabANT");
-      chexbox3[0].style.color = "black";
     }
-
-
     if (!Boolvacio1 && !Boolvacio2 && !Boolvacio3 && !Boolvacio4) {
 
       this.ObtEquipo.FK_IdModelo = parseInt(this.BuscarModelo);
@@ -589,18 +597,18 @@ export class RecepcionComponent implements OnInit {
     }
     return Validar;
   }
-  ActualizarCliente(identificacion){
+  ActualizarCliente(identificacion) {
     this.LimpiarObtCliente();
     this.RellenarListas(1);
     this.ClienteService.getCliente(identificacion).subscribe(
-      res=>{
+      res => {
         this.ObtCliente = res;
       }
     )
 
 
   }
-  LimpiarObtCliente(){
+  LimpiarObtCliente() {
     this.ObtCliente = {
       Id_cliente: null,
       FK_Tipo_Identificacion: 1,
@@ -613,7 +621,7 @@ export class RecepcionComponent implements OnInit {
       direccion: ''
     }
   }
-  EditarCliente(){
+  EditarCliente() {
 
     var Boolvacio1 = false;
     var Boolvacio2 = false;
@@ -647,19 +655,19 @@ export class RecepcionComponent implements OnInit {
     }
 
     this.ClienteService.getClientes().subscribe(
-      res=>{
+      res => {
         this.ListaClientes = res;
       }
     )
-    this.ListaClientes.forEach(element =>{
-      
-      if(this.ObtCliente.Numero_Identificacion == element.Numero_Identificacion){
-        if(this.ObtCliente.Id_cliente == element.Id_cliente){
+    this.ListaClientes.forEach(element => {
+
+      if (this.ObtCliente.Numero_Identificacion == element.Numero_Identificacion) {
+        if (this.ObtCliente.Id_cliente == element.Id_cliente) {
           ValidarIdentificacion = false;
-        }else{
+        } else {
           ValidarIdentificacion = true;
         }
-       
+
       }
     })
 
@@ -685,7 +693,7 @@ export class RecepcionComponent implements OnInit {
       Boolvacio8 = false;
     }
 
-    if(this.ValidarCadenaString(this.ObtCliente.segundo_Nombre)){
+    if (this.ValidarCadenaString(this.ObtCliente.segundo_Nombre)) {
       let username = document.getElementsByName("TxtSegundoNombre");
       username[0].style.borderBottomColor = "red";
       Boolvacio4 = true;
@@ -694,8 +702,8 @@ export class RecepcionComponent implements OnInit {
       username[0].style.borderBottomColor = "black";
       Boolvacio4 = false;
     }
-    
-    if(this.ValidarCadenaString(this.ObtCliente.segundo_Apellido)){
+
+    if (this.ValidarCadenaString(this.ObtCliente.segundo_Apellido)) {
       let username = document.getElementsByName("TxtSegundoApellido");
       username[0].style.borderBottomColor = "red";
       Boolvacio5 = true;
@@ -705,7 +713,7 @@ export class RecepcionComponent implements OnInit {
       Boolvacio6 = false;
     }
 
-    if(this.ValidarNumero(this.ObtCliente.Telefono)){
+    if (this.ValidarNumero(this.ObtCliente.Telefono)) {
       let username = document.getElementsByName("TxtTelefono");
       username[0].style.borderBottomColor = "red";
       Boolvacio7 = true;
@@ -715,21 +723,21 @@ export class RecepcionComponent implements OnInit {
       Boolvacio7 = false;
     }
 
-    if (!Boolvacio1 && !Boolvacio2 && !Boolvacio3 &&!Boolvacio4 &&
-        !Boolvacio5 && !Boolvacio6 && !Boolvacio7 && !Boolvacio8) {
+    if (!Boolvacio1 && !Boolvacio2 && !Boolvacio3 && !Boolvacio4 &&
+      !Boolvacio5 && !Boolvacio6 && !Boolvacio7 && !Boolvacio8) {
 
-          this.ClienteService.update(this.ObtCliente.Id_cliente,this.ObtCliente).subscribe(
-            res=>{
-              alert("El Cliente Ah Sido Actualizado");
-              this.OpcionAdministrador = "ActualizarCliente";
-              this.RellenarListas(2);
-      
-            }
-          )
+      this.ClienteService.update(this.ObtCliente.Id_cliente, this.ObtCliente).subscribe(
+        res => {
+          alert("El Cliente Ah Sido Actualizado");
+          this.OpcionAdministrador = "ActualizarCliente";
+          this.RellenarListas(2);
 
         }
-    
-    
+      )
+
+    }
+
+
   }
   ActualizarEquipos(e) {
 
@@ -737,16 +745,88 @@ export class RecepcionComponent implements OnInit {
 
       this.EquipoService.getEquipo(e.target.value).subscribe(
         res => {
-          this.ListaEquipoCliente = res;
+          if (res.length > 0) {
+            this.ListaServicios =[];
+            this.ListaEquipoCliente = res;
+            var Tamaño = res.length;
+            var Iterador = 0;
+            while(Iterador <Tamaño){
+            
+              var ServicioN :InterfaceServicio={
+                IdServicio: null,
+                Fecha_Ingreso: new Date,
+                Descripcion: "",
+                Valor: null
+                
+              }
+
+              var Opcion={
+                Opcion1:false,
+                Opcion2:false,
+                Opcion3:false,
+                Opcion4:false
+              }
+
+              this.ListaComboOpciones.push(Opcion);
+
+              Iterador++;
+              this.ListaServicios.push(ServicioN);
+            }
+            console.log(this.ListaServicios);
+            console.log(this.ListaComboOpciones);
+            
+          } else {
+            this.ListaEquipoCliente = [];
+          }
+
         },
         err => {
           this.ListaEquipoCliente = [];
         }
       )
-      
+
     } else {
       this.ListaEquipoCliente = [];
     }
 
   }
+
+  CrearServicio(){
+
+    // this.ListaServicios.forEach(element=>{
+    //   this.SolicitudService.createservicio(element).subscribe(
+    //     res=>{
+    //   })
+    // })
+
+      this.SolicitudService.createtrm({    IDTrm: null,
+        Fecha: this.ConvertirDateString(new Date),
+        valor: this.Trm}).subscribe(
+          res=>{
+            this.SolicitudService.buscartrm(parseInt(this.Trm)).subscribe(
+              res=>{
+                this.SolicitudCreada.Fk_Id_Empleado = this.EmpleadoAplicacion.Id_Empleado;
+                this.SolicitudCreada.FK_Id_clientes =parseInt(this.BuscarCliente);
+                this.SolicitudCreada.FK_IDTrm = res.IDTrm;
+                console.log(this.SolicitudCreada);
+              }
+            )
+          }
+        )
+
+     
+
+    // this.SolicitudCreada.FK_Id_clientes =parseInt(this.BuscarCliente);
+    // console.log(this.SolicitudCreada);
+
+
+
+  }
+
+  ConvertirDateString(Date : Date): string{
+
+    return Date.getFullYear() + "-" + (Date.getMonth()+1) + "-" +Date.getDate();
+  }
+
+  
 }

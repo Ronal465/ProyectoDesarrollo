@@ -44,7 +44,6 @@ export class LoginComponent implements OnInit {
 
   private IntIntentosLogin: number = 0;
 
-
   private ObtEmpleadoObtenido: InterfaceEmpleado;
   BoolSeccionLogin: boolean = true;
 
