@@ -23,7 +23,7 @@
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
     "gulp-sass": "^4.0.2",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "rxjs": "^6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
